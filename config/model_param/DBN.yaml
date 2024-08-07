@@ -1,0 +1,7 @@
+# DBN parameters
+# h1 : channels of hidden layer 1
+# h2 : channels of hidden layer 2
+
+params:
+  h1: 300
+  h2: 400

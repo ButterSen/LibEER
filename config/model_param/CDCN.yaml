@@ -1,0 +1,6 @@
+# CDCN parameters
+
+params:
+  growth_rate: 12
+  block_layers: [6, 6, 6]
+  dropout: 0.5
