@@ -60,7 +60,9 @@ import torch.nn as nn
 #    seed indep
 #    python DGCNN_train.py -metrics 'acc' 'macro-f1' -metric_choose 'macro-f1' -setting seed_early_stopping_sub_independent_setting -dataset_path "/date1/yss/data/SEED数据集/SEED" -dataset seed_de_lds -batch_size 16 -seed 2024 -epochs 150 >DGCNN_indep/b16.log
 #    0.6087	0.5722
-
+#    seediv indep
+#    CUDA_VISIBLE_DEVICES=2 nohup python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting seediv_early_stopping_sub_independent_setting -dataset_path "/date1/yss/data/SEED数据集/SEED_IV" -dataset seediv_raw -batch_size 32 -epochs 150 -time_window 1 -feature_type de_lds -seed 2024 -lr 0.0015 >DGCNN_indep/s4_b32e150_lr0.0015.log
+#    0.4254	0.431
 
 
 def main(args):
