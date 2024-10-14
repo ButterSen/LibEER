@@ -88,7 +88,6 @@ def main(args):
             # split train and test data by specified experiment mode
             train_data, train_label, val_data, val_label, test_data, test_label = \
                 index_to_data(data_i, label_i, train_indexes, test_indexes, val_indexes, args.keep_dim)
-            # print(len(train_data))
             # model to train
             if len(val_data) == 0:
                 val_data = test_data
