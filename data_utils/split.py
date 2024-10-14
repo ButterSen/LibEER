@@ -91,7 +91,7 @@ def index_to_data(data, label, train_indexes, test_indexes, val_indexes, keep_di
         if val_indexes[0] != -1:
             for val_index in val_indexes:
                 val_data.append(data[val_index])
-                val_label.append(data[val_index])
+                val_label.append(label[val_index])
     else:
         for train_index in train_indexes:
             train_data.extend(data[train_index])

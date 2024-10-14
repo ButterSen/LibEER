@@ -28,7 +28,7 @@ def preprocess(data, baseline, sample_rate, pass_band, extract_bands, time_windo
     if baseline is not None:
         data = baseline_removal(data, baseline)
     if not only_seg:
-        if pass_band != [None, None]:
+        if pass_band != [-1, -1]:
             data = bandpass_filter(data, sample_rate, pass_band)
         if eog_clean:
             data = eog_remove(data)
@@ -36,6 +36,37 @@ def preprocess(data, baseline, sample_rate, pass_band, extract_bands, time_windo
         data = feature_extraction(data, sample_rate, extract_bands, time_window, overlap, feature_type)
     data, feature_dim = segment_data(data, sample_length, stride)
     return data, feature_dim
+def noise_label(train_label, num_classes=3, level=0.1):
+    if type(train_label[0]) is np.ndarray:
+        train_label = [np.where(tl==1)[0] for tl in train_label]
+
+    noised_label = [[] for _ in train_label]
+    if num_classes == 4:
+        for i, label in enumerate(train_label):
+            if label == 0:
+                noised_label[i] = [1 - 3 / 4 * level, 1 / 4 * level, 1 / 4 * level, 1 / 4 * level]
+            elif label == 1:
+                noised_label[i] = [1 / 3 * level, 1 - 2 / 3 * level, 1 / 3 * level, 0]
+            elif label == 2:
+                noised_label[i] = [1 / 4 * level, 1 / 4 * level, 1 - 3 / 4 * level, 1 / 4 * level]
+            else:
+                noised_label[i] = [1 / 3 * level, 0, 1 / 3 * level, 1 - 2 / 3 * level]
+    elif num_classes == 3:
+        for i, label in enumerate(train_label):
+            if label == 0:
+                noised_label[i] = [1 - 2 / 3 * level, 2 / 3 * level, 0]
+            elif label == 1:
+                noised_label[i] = [1 / 3 * level, 1 - 2 / 3 * level, 1 / 3 * level]
+            else:
+                noised_label[i] = [0, 2 / 3 * level, 1 - 2 / 3 * level]
+    elif num_classes == 2:
+        for i, label in enumerate(train_label):
+            if label == 0:
+                noised_label[i] = [1, 0]
+            elif label == 1:
+                noised_label[i] = [0, 1]
+    return noised_label
+
 
 def baseline_removal(data, base):
     for ses_i, ses_data in enumerate(data):
