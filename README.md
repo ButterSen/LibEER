@@ -222,6 +222,7 @@ Currently supported predefined setting classes:
 </tbody></table>
 </div>
 ...
+
 ### Detailed usage
 To enable users to have more precise control and use of intermediate results, this section presents the detailed usage of the three main modules. If the settings class does not meet the requirements of your experiment, you can refer to the usage methods below.
 #### Data loader
