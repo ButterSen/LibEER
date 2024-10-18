@@ -15,7 +15,7 @@ pip install -r requirements.txt
 ## Usage
 
 LibEER implements three main modules: data loader, data splitting, and model training and evaluation. It also incorporates many representative algorithms in the field of EEG-based Emotion Recognition. The specific usage is detailed as follows. Additionally, to make it easier for users, we have implemented several one-step methods for common data processing and data splitting tasks. For more details, please refer to the quick start of this chapter.
-![[docs/LibEERframework.png]]
+![](docs/LibEERframework.png)
 ### Quick Start
 To facilitate easy use for users, we implemented the **Setting** class, allowing one-stop data usage through parameter configuration. Additionally, we have preconfigured many common experimental settings to help users quickly get started. 
 Data is achieved through the **Setting** class:
