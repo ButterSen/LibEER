@@ -15,7 +15,7 @@ pip install -r requirements.txt
 ## Usage
 
 LibEER implements three main modules: data loader, data splitting, and model training and evaluation. It also incorporates many representative algorithms in the field of EEG-based Emotion Recognition. The specific usage is detailed as follows. Additionally, to make it easier for users, we have implemented several one-step methods for common data processing and data splitting tasks. For more details, please refer to the quick start of this chapter.
-![The framework and data pipeline of LibEER](https://github.com/ButterSen/LibEER/blob/main/LibEER%20framework.png)
+![[Pasted image 20241018114425.png]]
 ### Quick Start
 To facilitate easy use for users, we implemented the **Setting** class, allowing one-stop data usage through parameter configuration. Additionally, we have preconfigured many common experimental settings to help users quickly get started. 
 Data is achieved through the **Setting** class:
@@ -39,10 +39,8 @@ setting = Setting(dataset='deap',
                   val_size=0.2)
 data, label, channels, feature_dim, num_classes = get_data(setting)
 data, label = merge_to_part(data, label, setting)
-# 
 for rridx, (data_i, label_i) in enumerate(zip(data, label), 1):  
     tts = get_split_index(data_i, label_i, setting)  
-	 # 
     for ridx, (train_indexes, test_indexes, val_indexes) in enumerate(zip(tts['train'], tts['test'], tts['val']), 1):  
 	    train_data, train_label, val_data, val_label, test_data, test_label = \  
     index_to_data(data_i, label_i, train_indexes, test_indexes, val_indexes, args.keep_dim)
@@ -58,12 +56,14 @@ for rridx, (data_i, label_i) in enumerate(zip(data, label), 1):
                              output_dir=output_dir, metrics=args.metrics, metric_choose=args.metric_choose, optimizer=optimizer,  
                              batch_size=args.batch_size, epochs=args.epochs, criterion=criterion, loss_func=loss_func, loss_param=model)  
         best_metrics.append(round_metric)  
-# best metrics: every round metrics dict  
     result_log(args, best_metrics)
 ```
-目前支持的预置好的setting类:
+Currently supported predefined setting classes:
+
 seed_sub_dependent_front_back_setting
+
 seed_sub_dependent_5fold_setting
+
 seed_sub_independent_leave_one_out_setting
 ...
 ### Detailed usage
@@ -98,7 +98,7 @@ for idx, (data_i, label_i) in enumerate(zip(data,label)):
 ```
 
 #### Model training and evaluation
-LibEER支持多种主流的情感识别方式，详情请看Support Methods章节，我们选用DGCNN进行训练和测试。
+LibEER supports various mainstream emotion recognition methods. For details, please refer to the Support Methods section. We selected DGCNN for training and testing.
 ```python
 from models.Models import Model
 from Trainer.training import train
