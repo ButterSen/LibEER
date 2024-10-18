@@ -42,9 +42,9 @@ data, label = merge_to_part(data, label, setting)
 for rridx, (data_i, label_i) in enumerate(zip(data, label), 1):  
     tts = get_split_index(data_i, label_i, setting)  
     for ridx, (train_indexes, test_indexes, val_indexes) in enumerate(zip(tts['train'], tts['test'], tts['val']), 1):  
-	    train_data, train_label, val_data, val_label, test_data, test_label = \  
+ 	train_data, train_label, val_data, val_label, test_data, test_label = \  
     index_to_data(data_i, label_i, train_indexes, test_indexes, val_indexes, args.keep_dim)
-		model = Model['DGCNN'](channels, feature_dim, num_classes)  
+	model = Model['DGCNN'](channels, feature_dim, num_classes)  
         # Train one round using the train one round function defined in the model  
         dataset_train = torch.utils.data.TensorDataset(torch.Tensor(train_data), torch.Tensor(train_label))  
         dataset_val = torch.utils.data.TensorDataset(torch.Tensor(val_data), torch.Tensor(val_label))  
