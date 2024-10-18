@@ -58,6 +58,12 @@ for rridx, (data_i, label_i) in enumerate(zip(data, label), 1):
         best_metrics.append(round_metric)  
     result_log(args, best_metrics)
 ```
+Data also can be achieved by preset setting by:
+```python
+from config.setting import seed_sub_dependent_train_val_test_setting
+data, label, channels, feature_dim, num_classes = get_data(setting)
+...
+```
 Currently supported predefined setting classes:
 <div>
 <table border="0" cellpadding="0" cellspacing="0" width="818" style="border-collapse:
@@ -221,7 +227,7 @@ Currently supported predefined setting classes:
  <!--[endif]-->
 </tbody></table>
 </div>
-...
+
 
 ### Detailed usage
 To enable users to have more precise control and use of intermediate results, this section presents the detailed usage of the three main modules. If the settings class does not meet the requirements of your experiment, you can refer to the usage methods below.
