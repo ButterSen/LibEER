@@ -88,11 +88,11 @@ def seed_sub_dependent_front_back_setting(args):
                    split_type='front-back', front=9, sessions=args.sessions, pr=args.pr, sr=args.sr, onehot=args.onehot,
                    label_used=args.label_used)
 
-def seed_early_stopping_sub_dep_setting(args):
+def seed_sub_dependent_train_val_test_setting(args):
     if not args.dataset.startswith('seed'):
         print('not using SEED dataset, please check your setting')
         exit(1)
-    print("Using Seed subject dependent early stopping experiment mode, \n"
+    print("Using Seed subject dependent train val test experiment mode, \n"
           "For each subject, nine random trails were used as training set, three random trails were used as verification"
           " set, last three trails were used as test, we choose best results in verification set and test results in test")
     return Setting(dataset=args.dataset, dataset_path=args.dataset_path, pass_band=[args.low_pass, args.high_pass],
@@ -101,7 +101,7 @@ def seed_early_stopping_sub_dep_setting(args):
                    only_seg=args.only_seg, experiment_mode="subject-dependent", normalize=args.normalize,
                    split_type='early-stop', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr, onehot=args.onehot,
                    label_used=args.label_used)
-def seediv_early_stopping_sub_dep_setting(args):
+def seediv_sub_dependent_train_val_test_setting(args):
     if not args.dataset.startswith('seediv'):
         print('not using SEED IV dataset, please check your setting')
         exit(1)
@@ -129,7 +129,7 @@ def seed_sub_dependent_5fold_setting(args):
                    pr=args.pr, sr=args.sr, onehot=args.onehot, label_used=args.label_used)
 
 
-def seed_sub_independent_setting(args):
+def seed_sub_independent_leave_one_out_setting(args):
     if not args.dataset.startswith('seed'):
         print('not using SEED dataset, please check your setting')
         exit(1)
@@ -144,7 +144,7 @@ def seed_sub_independent_setting(args):
                    split_type='leave-one-out', sessions=[1] if args.sessions is None else args.sessions,
                    pr=args.pr, sr=args.sr, onehot=args.onehot, label_used=args.label_used)
 
-def seed_early_stopping_sub_independent_setting(args):
+def seed_sub_independent_train_val_test_setting(args):
     if not args.dataset.startswith('seed'):
         print('not using SEED dataset, please check your setting')
         exit(1)
@@ -160,7 +160,7 @@ def seed_early_stopping_sub_independent_setting(args):
                    split_type='early-stop', test_size=0.2, val_size=0.2, sessions=[1] if args.sessions is None else args.sessions,
                    pr=args.pr, sr=args.sr, onehot=args.onehot, label_used=args.label_used)
 
-def hci_early_stopping_sub_dependent_setting(args):
+def hci_sub_dependent_train_val_test_setting(args):
     if not args.dataset.startswith('hci'):
         print('not using Hci dataset, please check your setting')
         exit(1)
@@ -175,7 +175,7 @@ def hci_early_stopping_sub_dependent_setting(args):
                    onehot=args.onehot, bounds=args.bounds,
                    label_used=args.label_used)
 
-def seediv_early_stopping_sub_independent_setting(args):
+def seediv_sub_independent_train_val_test_setting(args):
     if not args.dataset.startswith('seediv'):
         print('not using SEED IV dataset, please check your setting')
         exit(1)
@@ -190,7 +190,7 @@ def seediv_early_stopping_sub_independent_setting(args):
                    sessions=[1] if args.sessions is None else args.sessions,
                    pr=args.pr, sr=args.sr, onehot=args.onehot, label_used=args.label_used)
 
-def deap_early_stopping_sub_independent_setting(args):
+def deap_sub_independent_train_val_test_setting(args):
     if not args.dataset.startswith('deap'):
         print('not using deap dataset, please check your setting')
         exit(1)
@@ -201,7 +201,7 @@ def deap_early_stopping_sub_independent_setting(args):
                    split_type='early-stop', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr,
                    onehot=args.onehot, bounds=args.bounds,
                    label_used=args.label_used)
-def hci_early_stopping_sub_independent_setting(args):
+def hci_sub_independent_train_val_test_setting(args):
     if not args.dataset.startswith('hci'):
         print('not using Hci dataset, please check your setting')
         exit(1)
@@ -215,7 +215,7 @@ def hci_early_stopping_sub_independent_setting(args):
                    split_type='early-stop', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr,
                    onehot=args.onehot, bounds=args.bounds,
                    label_used=args.label_used)
-def deap_early_stopping_sub_dependent_setting(args):
+def deap_sub_dependent_train_val_test_setting(args):
     if not args.dataset.startswith('deap'):
         print('not using deap dataset, please check your setting')
         exit(1)
@@ -243,7 +243,7 @@ def seed_cross_session_setting(args):
                    split_type='leave-one-out', sessions=args.sessions, pr=args.pr, sr=args.sr, onehot=args.onehot,
                    label_used=args.label_used)
 
-def deap_sub_independent_setting(args):
+def deap_sub_independent_leave_one_out_setting(args):
     if not args.dataset.startswith('deap'):
         print('not using DEAP dataset, please check your setting')
         exit(1)
@@ -255,7 +255,7 @@ def deap_sub_independent_setting(args):
                    normalize=args.normalize, split_type='leave-one-out', pr=args.pr, sr=args.sr, bounds=args.bounds,
                    onehot=args.onehot, label_used=args.label_used)
 
-def deap_sub_dependent_setting(args):
+def deap_sub_dependent_10fold_setting(args):
     if not args.dataset.startswith('deap'):
         print('not using DEAP dataset, please check your setting')
         exit(1)
@@ -293,21 +293,21 @@ def dreamer_sub_dependent_setting(args):
 
 preset_setting = {
     # 记得改一下格式
-    "seed_early_stopping_sub_dep_setting": seed_early_stopping_sub_dep_setting,
-    "seediv_early_stopping_sub_dep_setting": seediv_early_stopping_sub_dep_setting,
-    "seed_early_stopping_sub_independent_setting": seed_early_stopping_sub_independent_setting,
-    "seediv_early_stopping_sub_independent_setting": seediv_early_stopping_sub_independent_setting,
-    "deap_early_stopping_sub_dependent_setting" : deap_early_stopping_sub_dependent_setting,
-    "hci_early_stopping_sub_dependent_setting" : hci_early_stopping_sub_dependent_setting,
-    "deap_early_stopping_sub_independent_setting" : deap_early_stopping_sub_independent_setting,
-    "hci_early_stopping_sub_independent_setting" : hci_early_stopping_sub_independent_setting,
+    "seed_sub_dependent_train_val_test_setting": seed_sub_dependent_train_val_test_setting,
+    "seediv_sub_dependent_train_val_test_setting": seediv_sub_dependent_train_val_test_setting,
+    "seed_sub_independent_train_val_test_setting": seed_sub_independent_train_val_test_setting,
+    "seediv_sub_independent_train_val_test_setting": seediv_sub_independent_train_val_test_setting,
+    "deap_sub_dependent_train_val_test_setting" : deap_sub_dependent_train_val_test_setting,
+    "hci_sub_dependent_train_val_test_setting" : hci_sub_dependent_train_val_test_setting,
+    "deap_sub_independent_train_val_test_setting" : deap_sub_independent_train_val_test_setting,
+    "hci_sub_independent_train_val_test_setting" : hci_sub_independent_train_val_test_setting,
     # ***********************************************************************
     "seed_sub_dependent_5fold_setting": seed_sub_dependent_5fold_setting,
     "seed_sub_dependent_front_back_setting": seed_sub_dependent_front_back_setting,
-    "seed_sub_independent_setting": seed_sub_independent_setting,
+    "seed_sub_independent_leave_one_out_setting": seed_sub_independent_leave_one_out_setting,
     "seed_cross_session_setting": seed_cross_session_setting,
-    "deap_sub_independent_setting": deap_sub_independent_setting,
-    "deap_sub_dependent_setting": deap_sub_dependent_setting,
+    "deap_sub_independent_leave_one_out_setting": deap_sub_independent_leave_one_out_setting,
+    "deap_sub_dependent_10fold_setting": deap_sub_dependent_10fold_setting,
     "dreamer_sub_independent_setting": dreamer_sub_independent_setting,
     "dreamer_sub_dependent_setting": dreamer_sub_dependent_setting,
 

@@ -1,7 +1,7 @@
 from torch.optim.lr_scheduler import CosineAnnealingLR
 
 from models.Models import Model
-from config.setting import deap_sub_independent_setting, preset_setting, set_setting_by_args
+from config.setting import deap_sub_independent_leave_one_out_setting, preset_setting, set_setting_by_args
 from data_utils.load_data import get_data
 from data_utils.split import merge_to_part, index_to_data, get_split_index
 from utils.args import get_args_parser
@@ -22,58 +22,58 @@ import torch.nn as nn
 
 #    hci dep
 #    arousal
-#    CUDA_VISIBLE_DEVICES=2 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 100 -lr 0.005 -time_window 1 -feature_type psd -bounds 5 5 -label_used arousal -seed 2024 -onehot >HSLT/hci_arousal_b256e100lr0.005.log
+#    CUDA_VISIBLE_DEVICES=2 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1'  -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 100 -lr 0.005 -time_window 1 -feature_type psd -bounds 5 5 -label_used arousal -seed 2024 -onehot >HSLT/hci_arousal_b256e100lr0.005.log
 #    0.6774/0.1722	0.5842/0.1950
 #    valence
-#    CUDA_VISIBLE_DEVICES=2 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 100 -lr 0.005 -time_window 1 -feature_type psd -bounds 5 5 -label_used valence -seed 2024 -onehot >HSLT/hci_valence_b256e100lr0.005.log
+#    CUDA_VISIBLE_DEVICES=2 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1'  -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 100 -lr 0.005 -time_window 1 -feature_type psd -bounds 5 5 -label_used valence -seed 2024 -onehot >HSLT/hci_valence_b256e100lr0.005.log
 #    0.6400/0.1140	0.5577/0.1312
 #    both
-#    CUDA_VISIBLE_DEVICES=2 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 100 -lr 0.01 -time_window 1 -feature_type psd -bounds 5 5 -label_used valence arousal -seed 2024 -onehot >HSLT/hci_both_b256e100lr0.01.log
+#    CUDA_VISIBLE_DEVICES=2 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1'  -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 100 -lr 0.01 -time_window 1 -feature_type psd -bounds 5 5 -label_used valence arousal -seed 2024 -onehot >HSLT/hci_both_b256e100lr0.01.log
 #    0.4699/0.2076	0.3476/0.1969
 
 #    deap dep
 #    arousal
-#    python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting deap_early_stopping_sub_dependent_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 256 -epochs 100 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 -onehot >HSLT/deap_both_b256e100lr0.005.log
+#    python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting deap_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 256 -epochs 100 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 -onehot >HSLT/deap_both_b256e100lr0.005.log
 #    0.5974/0.1882	0.5010/0.1808
 #    valence
-#    python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting deap_early_stopping_sub_dependent_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 512 -epochs 100 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 -onehot >HSLT/deap_valence_b512e100lr0.01.log
+#    python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting deap_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 512 -epochs 100 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 -onehot >HSLT/deap_valence_b512e100lr0.01.log
 #    0.5620/0.1814	0.4821/0.1873
 
 #    seed iv dep
-#    python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting seediv_early_stopping_sub_dep_setting -dataset_path /data1/cxx/SEED数据集/SEED_IV -dataset seediv_raw -batch_size 16 -epochs 150 -time_window 1 -feature_type de_lds -onehot -seed 2024 >HSLT/s4_b16e150.log
+#    python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting seediv_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/SEED数据集/SEED_IV -dataset seediv_raw -batch_size 16 -epochs 150 -time_window 1 -feature_type de_lds -onehot -seed 2024 >HSLT/s4_b16e150.log
 #    0.4028/0.2380	0.3092/0.2447
 
 #    seed dep
-#    python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting seed_early_stopping_sub_dep_setting -dataset_path /data1/cxx/SEED数据集/SEED/ -dataset seed_de_lds -batch_size 512 -epochs 100 -onehot -seed 2024 -lr 0.005 >HSLT/b512e100lr_0.005.log
+#    python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting seed_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/SEED数据集/SEED/ -dataset seed_de_lds -batch_size 512 -epochs 100 -onehot -seed 2024 -lr 0.005 >HSLT/b512e100lr_0.005.log
 #    0.6483/0.2047	0.5882/0.2336
 
 #    seed indep
-#    python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting seed_early_stopping_sub_independent_setting -dataset_path /data1/cxx/SEED数据集/SEED/ -dataset seed_de_lds -batch_size 512 -epochs 100 -onehot -seed 2024 -lr 0.01 >HSLT_indep/b512e100_lr0.01.log
+#    python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting seed_sub_independent_train_val_test_setting -dataset_path /data1/cxx/SEED数据集/SEED/ -dataset seed_de_lds -batch_size 512 -epochs 100 -onehot -seed 2024 -lr 0.01 >HSLT_indep/b512e100_lr0.01.log
 #    0.56	0.5575
 
 #    seediv indep
-#    CUDA_VISIBLE_DEVICES=2 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting seediv_early_stopping_sub_independent_setting -dataset_path /data1/cxx/SEED数据集/SEED_IV -dataset seediv_raw -batch_size 16 -epochs 150 -time_window 1 -feature_type de_lds -onehot -seed 2024 >HSLT_indep/s4_b16e150.log
+#    CUDA_VISIBLE_DEVICES=2 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting seediv_sub_independent_train_val_test_setting -dataset_path /data1/cxx/SEED数据集/SEED_IV -dataset seediv_raw -batch_size 16 -epochs 150 -time_window 1 -feature_type de_lds -onehot -seed 2024 >HSLT_indep/s4_b16e150.log
 #    0.3033	0.1164
 
 #    deap indep
 #    valence
-#    python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting deap_early_stopping_sub_independent_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 64 -epochs 100 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 -onehot >HSLT_indep/deap_valence_b64e100lr0.01.log
+#    python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting deap_sub_independent_train_val_test_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 64 -epochs 100 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 -onehot >HSLT_indep/deap_valence_b64e100lr0.01.log
 #    0.6694	0.6222
 #    arousal
-#    python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting deap_early_stopping_sub_independent_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 256 -epochs 100 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used arousal -seed 2024 -onehot >HSLT_indep/deap_arousal_b256e100lr0.005.log
+#    python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1' -setting deap_sub_independent_train_val_test_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 256 -epochs 100 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used arousal -seed 2024 -onehot >HSLT_indep/deap_arousal_b256e100lr0.005.log
 #    0.4948	0.4743
-#    CUDA_VISIBLE_DEVICES=1 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_independent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 100 -lr 0.005 -time_window 1 -feature_type psd -bounds 5 5 -label_used valence arousal -seed 2024 -onehot >HSLT_indep/hci_both_b512e100lr0.005.log
+#    CUDA_VISIBLE_DEVICES=1 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1'  -setting hci_sub_independent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 100 -lr 0.005 -time_window 1 -feature_type psd -bounds 5 5 -label_used valence arousal -seed 2024 -onehot >HSLT_indep/hci_both_b512e100lr0.005.log
 #    0.1731	0.1687
 
 #    hci indep
 #    arousal
-#    CUDA_VISIBLE_DEVICES=1 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_independent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 100 -lr 0.005 -time_window 1 -feature_type psd -bounds 5 5 -label_used arousal -seed 2024 -onehot >HSLT_indep/hci_arousal_b256e100lr0.005.log
+#    CUDA_VISIBLE_DEVICES=1 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1'  -setting hci_sub_independent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 100 -lr 0.005 -time_window 1 -feature_type psd -bounds 5 5 -label_used arousal -seed 2024 -onehot >HSLT_indep/hci_arousal_b256e100lr0.005.log
 #    0.4948	0.4743
 #    valence
-#    CUDA_VISIBLE_DEVICES=1 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_independent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 64 -epochs 100 -lr 0.01 -time_window 1 -feature_type psd -bounds 5 5 -label_used valence -seed 2024 -onehot >HSLT_indep/hci_valence_b64e100lr0.01.log
+#    CUDA_VISIBLE_DEVICES=1 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1'  -setting hci_sub_independent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 64 -epochs 100 -lr 0.01 -time_window 1 -feature_type psd -bounds 5 5 -label_used valence -seed 2024 -onehot >HSLT_indep/hci_valence_b64e100lr0.01.log
 #    0.6694	0.6222
 #    both
-#    CUDA_VISIBLE_DEVICES=1 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_independent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 128 -epochs 100 -lr 0.005 -time_window 1 -feature_type psd -bounds 5 5 -label_used valence arousal -seed 2024 -onehot >HSLT_indep/hci_both_b128e100lr0.005.log#
+#    CUDA_VISIBLE_DEVICES=1 nohup python HSLT_train.py -metrics 'acc' 'macro-f1' -model HSLT -metric_choose 'macro-f1'  -setting hci_sub_independent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 128 -epochs 100 -lr 0.005 -time_window 1 -feature_type psd -bounds 5 5 -label_used valence arousal -seed 2024 -onehot >HSLT_indep/hci_both_b128e100lr0.005.log#
 #    0.3507	0.2719
 
 def main(args):

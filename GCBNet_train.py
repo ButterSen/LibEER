@@ -15,58 +15,58 @@ import torch.nn as nn
 #    python GCBNet_train.py -onehot -batch_size 16 -lr 0.001 -sessions 1 2 -epochs 80
 #
 #    seed dep
-#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting seed_early_stopping_sub_dep_setting -dataset_path /data1/cxx/SEED数据集/SEED/ -dataset seed_de_lds -batch_size 32 -epochs 150 -seed 2024 -onehot >GCBNet/b32e150lr0.001.log
+#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting seed_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/SEED数据集/SEED/ -dataset seed_de_lds -batch_size 32 -epochs 150 -seed 2024 -onehot >GCBNet/b32e150lr0.001.log
 #    0.8056/0.1698	0.7729/0.2092
 #    seed iv dep
-#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting seediv_early_stopping_sub_dep_setting -dataset_path /data1/cxx/SEED数据集/SEED_IV -dataset seediv_raw -batch_size 32 -epochs 150 -lr 0.0015 -time_window 1 -feature_type de_lds -seed 2024 -onehot >GCBNet/s4_b32e150lr0.0015.log
+#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting seediv_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/SEED数据集/SEED_IV -dataset seediv_raw -batch_size 32 -epochs 150 -lr 0.0015 -time_window 1 -feature_type de_lds -seed 2024 -onehot >GCBNet/s4_b32e150lr0.0015.log
 #    0.5328/0.2105	0.4626/0.2227
 
 #    seed iv indep
-#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting seediv_early_stopping_sub_independent_setting -dataset_path /data1/cxx/SEED数据集/SEED_IV -dataset seediv_raw -batch_size 8 -epochs 150 -lr 0.001 -time_window 1 -feature_type de_lds -seed 2024 -lr 0.0015 >GCBNet_indep/s4_b8e150lr0.0015.log
+#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting seediv_sub_independent_train_val_test_setting -dataset_path /data1/cxx/SEED数据集/SEED_IV -dataset seediv_raw -batch_size 8 -epochs 150 -lr 0.001 -time_window 1 -feature_type de_lds -seed 2024 -lr 0.0015 >GCBNet_indep/s4_b8e150lr0.0015.log
 #    32.27%	0.3289
 
 #    hci dep
 #    arousal
-#    CUDA_VISIBLE_DEVICES=0 nohup python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used arousal -seed 2024 >GCBNet/hci_arousal_b512e150lr0.005.log
+#    CUDA_VISIBLE_DEVICES=0 nohup python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1'  -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used arousal -seed 2024 >GCBNet/hci_arousal_b512e150lr0.005.log
 #    0.6489/0.2712	0.5743/0.2950
 #    valence
-#    CUDA_VISIBLE_DEVICES=0 nohup python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 >GCBNet/hci_valence_b256e150lr0.005.log
+#    CUDA_VISIBLE_DEVICES=0 nohup python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1'  -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 >GCBNet/hci_valence_b256e150lr0.005.log
 #    0.6684/0.2142	0.5461/0.2508
 #    both
-#    CUDA_VISIBLE_DEVICES=0 nohup python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 >GCBNet/hci_both_b512e150lr0.005.log
+#    CUDA_VISIBLE_DEVICES=0 nohup python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1'  -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 >GCBNet/hci_both_b512e150lr0.005.log
 #    0.4915/0.2616	0.3649/0.2758
 
 #    deap dep
 #    both
-#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting deap_early_stopping_sub_dependent_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 128 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 -onehot >GCBNet/deap_both_b128e150lr0.005.log
+#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting deap_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 128 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 -onehot >GCBNet/deap_both_b128e150lr0.005.log
 #    0.3880/0.1623	0.2789/0.1594
 #    valence
-#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting deap_early_stopping_sub_dependent_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 128 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 -onehot >GCBNet/deap_valence_b128e150lr0.005.log
+#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting deap_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 128 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 -onehot >GCBNet/deap_valence_b128e150lr0.005.log
 #    0.5649/0.1817	0.5036/0.1957
 #    arousal
-#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting deap_early_stopping_sub_dependent_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 512 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used arousal -seed 2024 -onehot >GCBNet/deap_arousal_b512e150lr0.005.log
+#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting deap_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 512 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used arousal -seed 2024 -onehot >GCBNet/deap_arousal_b512e150lr0.005.log
 #    0.6595/0.1761	0.5534/0.1786
 
 #    hci indep
 #    valence
-#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_independent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 >GCBNet_indep/hci_valence_b256e150lr0.01.log
+#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1'  -setting hci_sub_independent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 >GCBNet_indep/hci_valence_b256e150lr0.01.log
 #    0.6516	0.6332
 #    arousal
-#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_independent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 >GCBNet_indep/hci_valence_b512e150lr0.005.log
+#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1'  -setting hci_sub_independent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 >GCBNet_indep/hci_valence_b512e150lr0.005.log
 #    0.5221	0.5184
 #    both
-#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_independent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 >GCBNet_indep/hci_both_b512e150lr0.01.log
+#    python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1'  -setting hci_sub_independent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 >GCBNet_indep/hci_both_b512e150lr0.01.log
 #    0.4302	0.3607
 
 #    deap indep
 #    valence
-#    CUDA_VISIBLE_DEVICES=2 nohup python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting deap_early_stopping_sub_independent_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 256 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 >GCBNet_indep/deap_valence_b256e150lr0.005.log
+#    CUDA_VISIBLE_DEVICES=2 nohup python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting deap_sub_independent_train_val_test_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 256 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 >GCBNet_indep/deap_valence_b256e150lr0.005.log
 #    0.5358	0.5068
 #    arousal
-#    CUDA_VISIBLE_DEVICES=2 nohup python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting deap_early_stopping_sub_independent_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 128 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used arousal -seed 2024 >GCBNet_indep/deap_arousal_b128e150lr0.005.log
+#    CUDA_VISIBLE_DEVICES=2 nohup python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting deap_sub_independent_train_val_test_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 128 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used arousal -seed 2024 >GCBNet_indep/deap_arousal_b128e150lr0.005.log
 #    0.5005	0.4779
 #    both
-#    CUDA_VISIBLE_DEVICES=2 nohup python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting deap_early_stopping_sub_independent_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 128 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 >GCBNet_indep/deap_both_b128e150lr0.01.log
+#    CUDA_VISIBLE_DEVICES=2 nohup python GCBNet_train.py -metrics 'acc' 'macro-f1' -model GCBNet -metric_choose 'macro-f1' -setting deap_sub_independent_train_val_test_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 128 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 >GCBNet_indep/deap_both_b128e150lr0.01.log
 #    0.3092	0.3098
 
 

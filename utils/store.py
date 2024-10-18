@@ -14,13 +14,13 @@ def make_output_dir(args, model):
         output_dir = output_dir / args.experiment_mode
         output_dir = output_dir / args.split_type
     if args.label_used is not None:
-        if len(args.label_used) == 0:
+        if len(args.label_used) == 1:
             output_dir = output_dir/args.label_used[0]
         else:
             output_dir = output_dir/ "both".join(label for label in args.label_used)
     return output_dir
 
-def save_state(output_dir, model, optimizer, epoch, r_idx='last', rr_idx='last', metric=None):
+def save_state(output_dir, model, optimizer, epoch, r_idx='last', rr_idx='last', metric=None, state='best'):
     # compatibility
     if type(output_dir) is argparse.Namespace:
         output_dir = make_output_dir(output_dir, output_dir.model)
@@ -35,7 +35,7 @@ def save_state(output_dir, model, optimizer, epoch, r_idx='last', rr_idx='last',
     except OSError as e:
         print(f"An error occurred: {e.strerror}")
     checkpoint_path = output_dir / f'checkpoint-{str(epoch)}' if metric is None \
-        else output_dir / f'checkpoint-best{metric}'
+        else output_dir / f'checkpoint-{state}{metric}'
     save = {
         'model': model.state_dict(),
         'optimizer': optimizer.state_dict(),

@@ -1,5 +1,5 @@
 from models.Models import Model
-from config.setting import seed_sub_independent_setting, preset_setting, set_setting_by_args
+from config.setting import seed_sub_independent_leave_one_out_setting, preset_setting, set_setting_by_args
 from data_utils.load_data import get_data
 from data_utils.split import merge_to_part, index_to_data, get_split_index
 from utils.args import get_args_parser
@@ -14,7 +14,7 @@ import numpy as np
 from data_utils.preprocess import ele_normalize
 
 # run this file with
-#    python Msmda_reproduction.py -sessions 1 2 3 -model MS-MDA -batch_size 256 -epochs 200 -lr 0.01 -setting  'seed_sub_independent_setting' -seed 20 -sr 15
+#    python Msmda_reproduction.py -sessions 1 2 3 -model MS-MDA -batch_size 256 -epochs 200 -lr 0.01 -setting  'seed_sub_independent_leave_one_out_setting' -seed 20 -sr 15
 #    0.9397
 # python Msmda_train.py -batch_size 256 -epochs 200 -lr 0.01 -setting
 def main(args):

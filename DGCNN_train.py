@@ -17,51 +17,51 @@ import torch.nn as nn
 #    0.8948/0.0849
 
 #    seed dep
-#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -metric_choose 'macro-f1' -setting seed_early_stopping_sub_dep_setting -dataset_path /data1/cxx/SEED数据集/SEED/ -dataset seed_de_lds -batch_size 32 -seed 2024 -epochs 80 -lr 0.0015 -onehot >DGCNN/b32_lr0.0015.log
+#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -metric_choose 'macro-f1' -setting seed_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/SEED数据集/SEED/ -dataset seed_de_lds -batch_size 32 -seed 2024 -epochs 80 -lr 0.0015 -onehot >DGCNN/b32_lr0.0015.log
 #    0.8255/0.1561	0.7989/0.1893
 
 #    seediv dep
-#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting seediv_early_stopping_sub_dep_setting -dataset_path /data1/cxx/SEED数据集/SEED_IV -dataset seediv_raw -batch_size 32 -epochs 150 -time_window 1 -feature_type de_lds -seed 2024 -onehot >DGCNN/s4_b32e150.log
+#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting seediv_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/SEED数据集/SEED_IV -dataset seediv_raw -batch_size 32 -epochs 150 -time_window 1 -feature_type de_lds -seed 2024 -onehot >DGCNN/s4_b32e150.log
 #    0.5239/0.2432	0.4594/0.2417
 
 #    deap dep
 #    both
-#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting deap_early_stopping_sub_dependent_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 512 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 -onehot >DGCNN/deap_both_b512e150lr0.005.log
+#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting deap_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 512 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 -onehot >DGCNN/deap_both_b512e150lr0.005.log
 #    0.4186/0.1157	0.2912/0.1092
 #    valence
-#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting deap_early_stopping_sub_dependent_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 512 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 -onehot >DGCNN/deap_valence_b512e150lr0.01.log
+#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting deap_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 512 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 -onehot >DGCNN/deap_valence_b512e150lr0.01.log
 #    0.5607/0.1715	0.4908/0.1750
 #    arousal
-#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting deap_early_stopping_sub_dependent_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 512 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used arousal -seed 2024 -onehot >DGCNN/deap_arousal_b512e150lr0.01.log
+#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting deap_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 512 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used arousal -seed 2024 -onehot >DGCNN/deap_arousal_b512e150lr0.01.log
 #    0.6268/0.1966	0.5394/0.2010
 
 #    hci dep
 #   `valence
-#    CUDA_VISIBLE_DEVICES=1 nohup python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 >DGCNN/hci_valence_b256e150lr0.01.log
+#    CUDA_VISIBLE_DEVICES=1 nohup python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 >DGCNN/hci_valence_b256e150lr0.01.log
 #    0.6783/0.2240	0.5478/0.2669
 #    arousal
-#    CUDA_VISIBLE_DEVICES=1 nohup python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used arousal -seed 2024 >DGCNN/hci_arousal_b512e150lr0.01.log
+#    CUDA_VISIBLE_DEVICES=1 nohup python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used arousal -seed 2024 >DGCNN/hci_arousal_b512e150lr0.01.log
 #    0.6729/0.2773	0.5804/0.3141
 #    both
-#    CUDA_VISIBLE_DEVICES=1 nohup python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 >DGCNN/hci_both_b256e150lr0.005.log
+#    CUDA_VISIBLE_DEVICES=1 nohup python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 256 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 >DGCNN/hci_both_b256e150lr0.005.log
 #    0.5306/0.2444	0.3975/0.2601
 
 
 #    hci indep
 #    arousal
-#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting hci_early_stopping_sub_independent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 128 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used arousal -seed 2024 >DGCNN_indep/hci_arousal_b128e150lr0.005.log
+#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting hci_sub_independent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 128 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used arousal -seed 2024 >DGCNN_indep/hci_arousal_b128e150lr0.005.log
 #    0.5942	0.5702
 #    valence
-#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting hci_early_stopping_sub_independent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 >DGCNN_indep/hci_valence_b512e150lr0.01.log
+#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting hci_sub_independent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 150 -lr 0.01 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence -seed 2024 >DGCNN_indep/hci_valence_b512e150lr0.01.log
 #    0.6319	0.5875
-#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting hci_early_stopping_sub_independent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 >DGCNN_indep/hci_both_b512e150lr0.005.log
+#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting hci_sub_independent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 512 -epochs 150 -lr 0.005 -time_window 1 -feature_type de_lds -bounds 5 5 -label_used valence arousal -seed 2024 >DGCNN_indep/hci_both_b512e150lr0.005.log
 #    0.4154	0.3808
 
 #    seed indep
-#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -metric_choose 'macro-f1' -setting seed_early_stopping_sub_independent_setting -dataset_path "/date1/yss/data/SEED数据集/SEED" -dataset seed_de_lds -batch_size 16 -seed 2024 -epochs 150 >DGCNN_indep/b16.log
+#    python DGCNN_train.py -metrics 'acc' 'macro-f1' -metric_choose 'macro-f1' -setting seed_sub_independent_train_val_test_setting -dataset_path "/date1/yss/data/SEED数据集/SEED" -dataset seed_de_lds -batch_size 16 -seed 2024 -epochs 150 >DGCNN_indep/b16.log
 #    0.6087	0.5722
 #    seediv indep
-#    CUDA_VISIBLE_DEVICES=2 nohup python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting seediv_early_stopping_sub_independent_setting -dataset_path "/date1/yss/data/SEED数据集/SEED_IV" -dataset seediv_raw -batch_size 32 -epochs 150 -time_window 1 -feature_type de_lds -seed 2024 -lr 0.0015 >DGCNN_indep/s4_b32e150_lr0.0015.log
+#    CUDA_VISIBLE_DEVICES=2 nohup python DGCNN_train.py -metrics 'acc' 'macro-f1' -model DGCNN -metric_choose 'macro-f1' -setting seediv_sub_independent_train_val_test_setting -dataset_path "/date1/yss/data/SEED数据集/SEED_IV" -dataset seediv_raw -batch_size 32 -epochs 150 -time_window 1 -feature_type de_lds -seed 2024 -lr 0.0015 >DGCNN_indep/s4_b32e150_lr0.0015.log
 #    0.4254	0.431
 
 

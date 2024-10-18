@@ -20,49 +20,49 @@ import numpy as np
 
 
 #    seed dep
-#    CUDA_VISIBLE_DEVICES=0 nohup python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1' -setting seed_early_stopping_sub_dep_setting -dataset_path /data1/cxx/SEED数据集/SEED/ -dataset seed_raw -batch_size 16 -epochs 200 -only_seg -sample_length 200 -stride 200 -seed 2024 >TSception/b16e200.log
+#    CUDA_VISIBLE_DEVICES=0 nohup python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1' -setting seed_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/SEED数据集/SEED/ -dataset seed_raw -batch_size 16 -epochs 200 -only_seg -sample_length 200 -stride 200 -seed 2024 >TSception/b16e200.log
 #    0.6401/0.1644	0.6053/0.1851
 #    seed iv dep
-#    CUDA_VISIBLE_DEVICES=1 nohup python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1' -setting seediv_early_stopping_sub_dep_setting -dataset_path /data1/cxx/SEED数据集/SEED_IV -dataset seediv_raw -batch_size 16 -epochs 300 -only_seg -sample_length 200 -stride 200 -seed 2024 >TSception/s4_b16e300.log
+#    CUDA_VISIBLE_DEVICES=1 nohup python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1' -setting seediv_sub_dependent_train_val_test_setting -dataset_path /data1/cxx/SEED数据集/SEED_IV -dataset seediv_raw -batch_size 16 -epochs 300 -only_seg -sample_length 200 -stride 200 -seed 2024 >TSception/s4_b16e300.log
 #    0.3606/0.1512	0.3277/0.1508
 
 #    seed indep
-#    CUDA_VISIBLE_DEVICES=1 nohup python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1' -setting seed_early_stopping_sub_independent_setting -dataset_path /data1/cxx/SEED数据集/SEED/ -dataset seed_raw -batch_size 32 -epochs 200 -only_seg -sample_length 200 -stride 200 -seed 2024 >TSception_indep/b32e200.log
+#    CUDA_VISIBLE_DEVICES=1 nohup python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1' -setting seed_sub_independent_train_val_test_setting -dataset_path /data1/cxx/SEED数据集/SEED/ -dataset seed_raw -batch_size 32 -epochs 200 -only_seg -sample_length 200 -stride 200 -seed 2024 >TSception_indep/b32e200.log
 #    0.456	0.4354
 #    seed iv indep
-#    CUDA_VISIBLE_DEVICES=3 nohup python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1' -setting seediv_early_stopping_sub_independent_setting -dataset_path /data1/cxx/SEED数据集/SEED_IV -dataset seediv_raw -batch_size 16 -epochs 300 -only_seg -sample_length 200 -stride 200 -seed 2024 >TSception_indep/s4_b16e300.log
+#    CUDA_VISIBLE_DEVICES=3 nohup python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1' -setting seediv_sub_independent_train_val_test_setting -dataset_path /data1/cxx/SEED数据集/SEED_IV -dataset seediv_raw -batch_size 16 -epochs 300 -only_seg -sample_length 200 -stride 200 -seed 2024 >TSception_indep/s4_b16e300.log
 #    0.3419	0.2683
 
 #    deap indep
 #    valence
-#    python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1' -setting deap_early_stopping_sub_independent_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 64 -epochs 300 -lr 0.001 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used valence -seed 2024 >TSception_indep/deap_valence_b64e300lr0.001.log
+#    python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1' -setting deap_sub_independent_train_val_test_setting -dataset_path /data1/cxx/DEAP/data_preprocessed_python -dataset deap -batch_size 64 -epochs 300 -lr 0.001 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used valence -seed 2024 >TSception_indep/deap_valence_b64e300lr0.001.log
 #    0.5444	0.4894
 #    arousal
-#    python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.001 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used arousal -seed 2024 >TSception/hci_arousal_b32e300lr0.001.log
+#    python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.001 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used arousal -seed 2024 >TSception/hci_arousal_b32e300lr0.001.log
 #    0.459	0.4556
 #    both
-#    python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.002 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used arousal -seed 2024 >TSception/hci_arousal_b32e300lr0.002.log
+#    python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.002 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used arousal -seed 2024 >TSception/hci_arousal_b32e300lr0.002.log
 #    0.2464	0.2324
 
 #   hci indep
 #   valence
-#   python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.001 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used valence -seed 2024 >TSception/hci_valence_b32e300lr0.001.log
+#   python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.001 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used valence -seed 2024 >TSception/hci_valence_b32e300lr0.001.log
 #   0.5736	0.5476
 #   arousal
-#   python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_independent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.001 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used arousal -seed 2024 >TSception_indep/hci_arousal_b32e300lr0.001.log
+#   python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_sub_independent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.001 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used arousal -seed 2024 >TSception_indep/hci_arousal_b32e300lr0.001.log
 #   0.523	0.5025
-#   python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_independent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.001 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used valence arousal -seed 2024 >TSception_indep/hci_both_b32e300lr0.001.log
+#   python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_sub_independent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.001 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used valence arousal -seed 2024 >TSception_indep/hci_both_b32e300lr0.001.log
 #   0.2699	0.2195
 
 #   hci dep
 #   arousal
-#   python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.002 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used arousal -seed 2024 >TSception/hci_arousal_b32e300lr0.002.log
+#   python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.002 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used arousal -seed 2024 >TSception/hci_arousal_b32e300lr0.002.log
 #   0.6826/0.2310	0.5629/0.2379
 #   valence
-#   python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.002 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used valence -seed 2024 >TSception/hci_valence_b32e300lr0.002.log
+#   python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.002 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used valence -seed 2024 >TSception/hci_valence_b32e300lr0.002.log
 #   0.6112/0.1552	0.5051/0.1669
 #   both
-#   python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_early_stopping_sub_dependent_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.002 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used valence arousal -seed 2024 >TSception/hci_both_b32e300lr0.002.log
+#   python TSception_train.py -metrics 'acc' 'macro-f1' -model TSception -metric_choose 'macro-f1'  -setting hci_sub_dependent_train_val_test_setting -dataset_path "/data1/cxx/HCI数据集/" -dataset hci -batch_size 32 -epochs 300 -lr 0.002 -only_seg -sample_length 128 -stride 128 -bounds 5 5 -label_used valence arousal -seed 2024 >TSception/hci_both_b32e300lr0.002.log
 #   0.4000/0.2060	0.2719/0.1365
 
 def main(args):
