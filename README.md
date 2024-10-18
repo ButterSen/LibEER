@@ -64,7 +64,7 @@ from config.setting import seed_sub_dependent_train_val_test_setting
 data, label, channels, feature_dim, num_classes = get_data(setting)
 ...
 ```
-Currently supported prset setting can be found in [Preset Setting in LibEER](docs/PresetSetting)
+Currently supported prset setting can be found in [Preset Setting in LibEER](docs/PresetSetting.md)
 
 ### Detailed usage
 To enable users to have more precise control and use of intermediate results, this section presents the detailed usage of the three main modules. If the settings class does not meet the requirements of your experiment, you can refer to the usage methods below.
