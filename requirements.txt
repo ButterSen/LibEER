@@ -1,0 +1,10 @@
+numpy==1.24.3
+scikit-learn==1.4.2
+scipy==1.9.3
+torch==1.13.0+cu117
+torch_geometric==2.4.0
+torchaudio==0.13.1+cu116
+torchvision==0.14.1+cu116
+tqdm==4.66.4
+PyYAML==6.0.1
+
