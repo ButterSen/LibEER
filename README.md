@@ -5,13 +5,19 @@ LibEER estabilshes a unified evaluation framework with standardized experimental
 - **Comprehensive Algorithm Library**: The framework includes implementations of over ten deep learning models, covering a wide range of architectures (CNN, RNN, GNN, and Transformers), making it highly versatile for EEG analysis.
 - **Efficient Preprocessing and Training**: LibEER offers various preprocessing techniques and customizable settings, enabling efficient model fine-tuning, lowering the entry barrier for researchers, and boosting research efficiency.
 - **Extensive Dataset Support**: LibEER gives standardized access to major datasets like SEED, SEED-IV, DEAP, and MAHNOB-HCI, supporting both subject-dependent and cross-subject evaluations, with plans to add more datasets in the future.
-## Requirements
+## Installation
 To run this project, you'll need the following dependencies:
 1. Python 3.x recommended
 2. Dependencies: You can install the required Python packages by running:
 ```cmd
 pip install -r requirements.txt
 ```
+### pip
+To install the LibEER by pip, please use the following command
+```cmd
+pip install LibEER
+```
+
 ## Usage
 
 LibEER implements three main modules: data loader, data splitting, and model training and evaluation. It also incorporates many representative algorithms in the field of EEG-based Emotion Recognition. The specific usage is detailed as follows. Additionally, to make it easier for users, we have implemented several one-step methods for common data processing and data splitting tasks. For more details, please refer to the quick start of this chapter.
