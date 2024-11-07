@@ -1,4 +1,5 @@
 # LibEER: A Comprehensive Benchmark and Algorithm Library for EEG-based Emotion Recognition
+Paper Link:[[2410.09767] LibEER: A Comprehensive Benchmark and Algorithm Library for EEG-based Emotion Recognition](https://arxiv.org/abs/2410.09767)
 ## Project Description
 LibEER estabilshes a unified evaluation framework with standardized experimental settings, enabling unbiased evaluations of over representative deep learning-based EER models across the four most commonly used datasets.
 - **Standardized Benchmark**: LibEER provides a unified benchmark for fair comparisons in EER research, addressing inconsistencies in datasets, settings, and metrics, making it easier to evaluate various models.
@@ -18,7 +19,7 @@ To install the LibEER by pip, please use the following command
 pip install LibEER
 ```
 
-## Usage
+## LibEER Usage
 
 LibEER implements three main modules: data loader, data splitting, and model training and evaluation. It also incorporates many representative algorithms in the field of EEG-based Emotion Recognition. The specific usage is detailed as follows. Additionally, to make it easier for users, we have implemented several one-step methods for common data processing and data splitting tasks. For more details, please refer to the quick start of this chapter.
 ![](docs/LibEERframework.png)
@@ -26,8 +27,19 @@ LibEER implements three main modules: data loader, data splitting, and model tra
 To facilitate easy use for users, we implemented the **Setting** class, allowing one-stop data usage through parameter configuration. Additionally, we have preconfigured many common experimental settings to help users quickly get started. 
 Data is achieved through the **Setting** class:
 ```python
+import torch  
+import torch.optim as optim  
+import torch.nn as nn
+
 from config.setting import Setting  
-  
+from Trainer.training import train
+from models.Models import Model
+from models.DGCNN import NewSparseL2Regularization
+from data_utils.load_data import get_data  
+from data_utils.split import merge_to_part, index_to_data, get_split_index
+from utils.utils import result_log,
+
+
 setting = Setting(dataset='deap',  
                   dataset_path='DEAP/data_preprocessed_python',  
                   pass_band=[0.3, 50],  
@@ -112,6 +124,7 @@ model = Model['DGCNN'](num_electrodes=channels, feature_dim=5,  num_classes=3, k
 # train and evaluate model, then output the metric  
 round_metric = train(model,train_data,train_label,val_data,val_label,test_data,test_label)
 ```
+
 ## Supported Dataset
 - [seed](https://bcmi.sjtu.edu.cn/home/seed/seed.html)
 - [seediv](https://bcmi.sjtu.edu.cn/home/seed/seed-iv.html)
@@ -133,4 +146,16 @@ round_metric = train(model,train_data,train_label,val_data,val_label,test_data,t
 - [ACRNN](https://ieeexplore.ieee.org/abstract/document/9204431)
 ### Transformer methods
 - [HSLT](https://www.sciencedirect.com/science/article/abs/pii/S0893608024005483)
-
+## Citations
+```
+@misc{liu2024libeercomprehensivebenchmarkalgorithm,
+      title={LibEER: A Comprehensive Benchmark and Algorithm Library for EEG-based Emotion Recognition}, 
+      author={Huan Liu and Shusen Yang and Yuzhe Zhang and Mengze Wang and Fanyu Gong and Chengxi Xie and Guanjian Liu and Dalin Zhang},
+      year={2024},
+      eprint={2410.09767},
+      archivePrefix={arXiv},
+      primaryClass={cs.HC},
+      url={https://arxiv.org/abs/2410.09767}, 
+}
+@article{Liu2024EEGBasedME, title={EEG-Based Multimodal Emotion Recognition: A Machine Learning Perspective}, author={Huan Liu and Tianyu Lou and Yuzhe Zhang and Yixiao Wu and Yang Xiao and Christian S. Jensen and Dalin Zhang}, journal={IEEE Transactions on Instrumentation and Measurement}, year={2024}, volume={73}, pages={1-29}, url={https://api.semanticscholar.org/CorpusID:267978819} }
+```
