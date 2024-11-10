@@ -124,7 +124,18 @@ model = Model['DGCNN'](num_electrodes=channels, feature_dim=5,  num_classes=3, k
 # train and evaluate model, then output the metric  
 round_metric = train(model,train_data,train_label,val_data,val_label,test_data,test_label)
 ```
+## Use the Model via pip
+If you are only interested in the reproduced model, install the LibEER via pip and see the following instructions.
+```python
+import LibEER.models.MsMda as MsMda
+# use the training method provided by LibEER or yours
+import LibEER.Trainer.msmdaTrain as train
+model = MsMda(channels, feature_dim, num_classes, number_of_source=samples_source)
+# result dicts
+round_metric = train(model=model, datasets_train=datasets_train, dataset_val=dataset_val, dataset_test=dataset_test, output_dir=output_dir, samples_source=samples_source, device=device, metrics=args.metrics, metric_choose=args.metric_choose, optimizer=optimizer,
 
+                                 batch_size=args.batch_size, epochs=args.epochs, criterion=criterion)
+```
 ## Supported Dataset
 - [seed](https://bcmi.sjtu.edu.cn/home/seed/seed.html)
 - [seediv](https://bcmi.sjtu.edu.cn/home/seed/seed-iv.html)
@@ -148,18 +159,6 @@ round_metric = train(model,train_data,train_label,val_data,val_label,test_data,t
 - [R2G-STNN](https://ieeexplore.ieee.org/document/8736804)
 ### Transformer methods
 - [HSLT](https://www.sciencedirect.com/science/article/abs/pii/S0893608024005483)
-## Use the Model via pip
-If you are only interested in the reproduced model, install the LibEER via pip and see the following instructions.
-```python
-import LibEER.models.MsMda as MsMda
-# use the training method provided by LibEER or yours
-import LibEER.Trainer.msmdaTrain as train
-model = MsMda(channels, feature_dim, num_classes, number_of_source=samples_source)
-# result dicts
-round_metric = train(model=model, datasets_train=datasets_train, dataset_val=dataset_val, dataset_test=dataset_test, output_dir=output_dir, samples_source=samples_source, device=device, metrics=args.metrics, metric_choose=args.metric_choose, optimizer=optimizer,
-
-                                 batch_size=args.batch_size, epochs=args.epochs, criterion=criterion)
-```
 ## Citations
 ```
 @inproceedings{liu2024libeercomprehensivebenchmarkalgorithm,
