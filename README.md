@@ -170,5 +170,12 @@ round_metric = train(model=model, datasets_train=datasets_train, dataset_val=dat
       primaryClass={cs.HC},
       url={https://arxiv.org/abs/2410.09767}, 
 }
-@article{Liu2024EEGBasedME, title={EEG-Based Multimodal Emotion Recognition: A Machine Learning Perspective}, author={Huan Liu and Tianyu Lou and Yuzhe Zhang and Yixiao Wu and Yang Xiao and Christian S. Jensen and Dalin Zhang}, journal={IEEE Transactions on Instrumentation and Measurement}, year={2024}, volume={73}, pages={1-29}, url={https://api.semanticscholar.org/CorpusID:267978819} }
+@article{Liu2024EEGBasedME, 
+	title={EEG-Based Multimodal Emotion Recognition: A Machine Learning Perspective},
+	author={Huan Liu and Tianyu Lou and Yuzhe Zhang and Yixiao Wu and Yang Xiao and Christian S. Jensen and Dalin Zhang}, 
+	journal={IEEE Transactions on Instrumentation and Measurement}, 
+	year={2024}, 
+	volume={73}, 
+	pages={1-29}, 
+	url={https://api.semanticscholar.org/CorpusID:267978819} }
 ```
