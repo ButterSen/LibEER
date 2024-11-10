@@ -14,14 +14,14 @@ To run this project, you'll need the following dependencies:
 pip install -r requirements.txt
 ```
 ### pip
-To install the LibEER by pip, please use the following command
+To install the LibEER by pip, please use the following command, all reproduced models have been integrated, easily for direct use. Please refer to chapter use model via pip for more information.
 ```cmd
 pip install LibEER
 ```
 
 ## LibEER Usage
 
-LibEER implements three main modules: data loader, data splitting, and model training and evaluation. It also incorporates many representative algorithms in the field of EEG-based Emotion Recognition. The specific usage is detailed as follows. Additionally, to make it easier for users, we have implemented several one-step methods for common data processing and data splitting tasks. For more details, please refer to the quick start of this chapter.
+LibEER implements three main modules: data loader, data splitting, and model training and evaluation. It also incorporates many representative algorithms in the field of EEG-based Emotion Recognition. The specific usage is detailed as follows. Additionally, to make it easier for users, we have implemented several one-step methods for common data processing and data splitting tasks. All reproduced models have corresponding main files named `$MODEL_NAME$_train.py` for reference.. For more details, please refer to the quick start of this chapter.
 ![](docs/LibEERframework.png)
 ### Quick Start
 To facilitate easy use for users, we implemented the **Setting** class, allowing one-stop data usage through parameter configuration. Additionally, we have preconfigured many common experimental settings to help users quickly get started. 
@@ -144,8 +144,22 @@ round_metric = train(model,train_data,train_label,val_data,val_label,test_data,t
 - [GCB-Net](https://ieeexplore.ieee.org/document/8815811)
 ### RNN methods
 - [ACRNN](https://ieeexplore.ieee.org/abstract/document/9204431)
+- [BiDANN](https://ieeexplore.ieee.org/document/8567966)
+- [R2G-STNN](https://ieeexplore.ieee.org/document/8736804)
 ### Transformer methods
 - [HSLT](https://www.sciencedirect.com/science/article/abs/pii/S0893608024005483)
+## Use the Model via pip
+If you are only interested in the reproduced model, install the LibEER via pip and see the following instructions.
+```python
+import LibEER.models.MsMda as MsMda
+# use the training method provided by LibEER or yours
+import LibEER.Trainer.msmdaTrain as train
+model = MsMda(channels, feature_dim, num_classes, number_of_source=samples_source)
+# result dicts
+round_metric = train(model=model, datasets_train=datasets_train, dataset_val=dataset_val, dataset_test=dataset_test, output_dir=output_dir, samples_source=samples_source, device=device, metrics=args.metrics, metric_choose=args.metric_choose, optimizer=optimizer,
+
+                                 batch_size=args.batch_size, epochs=args.epochs, criterion=criterion)
+```
 ## Citations
 ```
 @inproceedings{liu2024libeercomprehensivebenchmarkalgorithm,

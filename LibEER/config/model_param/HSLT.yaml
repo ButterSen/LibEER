@@ -1,0 +1,13 @@
+# HSLT parameters
+# De is input embedding dimension (electrode level) = 8 set by official
+# Dr is embedding dimension (brain - region level) = 16  set by official
+# Le is no of encoders (electrode level) = 2 set by official
+# Lr is no of encoder (brain - region level) = 2  set by official
+
+
+params:
+  De: 8
+  Dr: 16
+  Le: 2
+  Lr: 2
+

@@ -1,0 +1,7 @@
+params:
+  num_layers: 2
+  num_hidden: 128
+  noise_level: 0.1
+  dropout: 0.7
+  domain_adaptation: false
+  prior_known_init: true

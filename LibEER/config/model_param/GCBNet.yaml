@@ -1,0 +1,12 @@
+# DGCNN parameters
+# k is the order of Chebyshev polynomials : 2 set by official
+# relu_is (The type of B_Relu func) : 1 set by experience
+# layers (The channels of each layers) : 128 set by experience
+# dropout (the dropout rate of the fc layers) : 0.5 set by official
+
+params:
+  k: 4
+  relu_is: 1
+  layers:
+      - 64 # seed, seed4
+  dropout: 0.5
