@@ -161,9 +161,9 @@ round_metric = train(model=model, datasets_train=datasets_train, dataset_val=dat
 - [HSLT](https://www.sciencedirect.com/science/article/abs/pii/S0893608024005483)
 ## Citations
 ```
-@inproceedings{liu2024libeercomprehensivebenchmarkalgorithm,
+@inproceeding{liu2024libeercomprehensivebenchmarkalgorithm,
       title={LibEER: A Comprehensive Benchmark and Algorithm Library for EEG-based Emotion Recognition}, 
-      author={Huan Liu and Shusen Yang and Yuzhe Zhang and Mengze Wang and Fanyu Gong and Chengxi Xie and Guanjian Liu and Dalin Zhang},
+      author={Huan Liu and Shusen Yang and Yuzhe Zhang and Mengze Wang and Fanyu Gong and Chengxi Xie and Guanjian Liu and Zejun Liu and Yong-Jin Liu and Bao-Liang Lu and Dalin Zhang},
       year={2024},
       eprint={2410.09767},
       archivePrefix={arXiv},
