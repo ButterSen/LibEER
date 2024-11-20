@@ -41,7 +41,7 @@ def get_args_parser():
     # dataset parameters
     parser.add_argument('-dataset', default='seed_de_lds', type=str, choices=available_dataset,
                         help=f'available dataset are {available_dataset}')
-    parser.add_argument('-dataset_path', default='/date1/yss/data/SEED数据集/SEED', type=str,
+    parser.add_argument('-dataset_path', default='YourDatasetPath/', type=str,
                         help='the location of dataset')
     parser.add_argument('-low_pass', default=0.3, type=float, help='the minimum frequency of bandpass filter')
     parser.add_argument('-high_pass', default=50, type=float, help='the maximum frequency of bandpass filter')
