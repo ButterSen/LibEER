@@ -20,9 +20,14 @@ pip install LibEER
 ```
 
 ## LibEER Usage
-
 LibEER implements three main modules: data loader, data splitting, and model training and evaluation. It also incorporates many representative algorithms in the field of EEG-based Emotion Recognition. The specific usage is detailed as follows. Additionally, to make it easier for users, we have implemented several one-step methods for common data processing and data splitting tasks. All reproduced models have corresponding main files named `$MODEL_NAME$_train.py` for reference.. For more details, please refer to the quick start of this chapter.
 ![](docs/LibEERframework.png)
+### Dataset Preparation
+LibEER supports the use of four EEG emotion recognition datasets. If you wish to conduct experiments on these datasets, please visit their respective official websites to apply for and download the datasets:
+- [seed](https://bcmi.sjtu.edu.cn/home/seed/seed.html)
+- [seediv](https://bcmi.sjtu.edu.cn/home/seed/seed-iv.html)
+- [deap](https://www.eecs.qmul.ac.uk/mmv/datasets/deap/)
+- [hci](https://mahnob-db.eu/hci-tagging/)
 ### Quick Start
 To facilitate easy use for users, we implemented the **Setting** class, allowing one-stop data usage through parameter configuration. Additionally, we have preconfigured many common experimental settings to help users quickly get started. 
 Data is achieved through the **Setting** class:
