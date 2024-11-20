@@ -13,6 +13,11 @@ from utils.store import save_state
 from utils.metric import Metric
 from data_utils.preprocess import normalize
 
+# ACRNN official code ( Tensorflow : https://github.com/AstoncPou/ACRNN)
+# EEG-Based Emotion Recognition via Channel-Wise Attention and Self Attention
+# ACRNN paper link : https://ieeexplore.ieee.org/abstract/document/9204431
+# W. Tao et al., "EEG-Based Emotion Recognition via Channel-Wise Attention and Self Attention," in IEEE Transactions on Affective Computing, vol. 14, no. 1, pp. 382-393, 1 Jan.-March 2023, doi: 10.1109/TAFFC.2020.3025777.
+
 def square(x):
     return x * x
 

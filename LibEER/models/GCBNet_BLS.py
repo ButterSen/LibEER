@@ -14,6 +14,10 @@ from utils.metric import Metric
 
 param_path = 'config/model_param/GCBNet_BLS.yaml'
 
+# GCB-Net: Graph Convolutional Broad Network and Its Application in Emotion Recognition
+# GCB-Net bls paper link : https://ieeexplore.ieee.org/document/8815811
+# T. Zhang, X. Wang, X. Xu and C. L. P. Chen, "GCB-Net: Graph Convolutional Broad Network and Its Application in Emotion Recognition," in IEEE Transactions on Affective Computing, vol. 13, no. 1, pp. 379-388, 1 Jan.-March 2022, doi: 10.1109/TAFFC.2019.2937768.
+
 
 def tansig(x):
     return 2 / (1 + torch.exp(-2*x)) - 1

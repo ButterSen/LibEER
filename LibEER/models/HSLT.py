@@ -22,7 +22,9 @@ from data_utils.constants.seed import HSLT_SEED_Regions, SEED_CHANNEL_NAME
 
 param_path = 'config/model_param/HSLT.yaml'
 
-
+# Transformers for EEG-Based Emotion Recognition: A Hierarchical Spatial Information Learning Model
+# HSLT paper link : https://www.researchgate.net/publication/357923204_Transformers_for_EEG-based_emotion_recognition_A_hierarchical_spatial_information_learning_model
+# Wang, Zhe & Wang, Yongxiong & Hu, Chuanfei & Yin, Zhong & Song, Yu. (2022). Transformers for EEG-Based Emotion Recognition: A Hierarchical Spatial Information Learning Model. IEEE Sensors Journal. PP. 1-1. 10.1109/JSEN.2022.3144317.
 class HSLT(nn.Module):
     # sample_length, channels, feature_dim, num_classes, get_param, others
     def __init__(self, num_electrodes=32, in_channels=5, num_classes=2, De=8, Dr=16, Le=2, Lr=2):

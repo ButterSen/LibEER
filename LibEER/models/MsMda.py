@@ -16,6 +16,10 @@ import math
 param_path = 'config/model_param/MSMDA.yaml'
 
 dim_feature = 310
+# code reference :
+# MS-MDA: Multisource Marginal Distribution Adaptation for Cross-Subject and Cross-Session EEG Emotion Recognition
+# paper link : MS-MDA: Multisource Marginal Distribution Adaptation for Cross-Subject and Cross-Session EEG Emotion Recognition
+# Chen H, Jin M, Li Z, et al. MS-MDA: Multisource marginal distribution adaptation for cross-subject and cross-session EEG emotion recognition[J]. Frontiers in Neuroscience, 2021, 15: 778488.
 
 class MSMDA(nn.Module):
     def __init__(self, num_electrodes=62, in_channels=5, num_classes=3, number_of_source = 14, pretrained=False):

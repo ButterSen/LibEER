@@ -16,6 +16,10 @@ from utils.metric import Metric
 param_path = '../config/model_param/CDCN.yaml'
 
 
+# A Channel-Fused Dense Convolutional Network for EEG-Based Emotion Recognition
+# CDCN paper link: https://ieeexplore.ieee.org/abstract/document/9204431
+# W. Tao et al., "EEG-Based Emotion Recognition via Channel-Wise Attention and Self Attention," in IEEE Transactions on Affective Computing, vol. 14, no. 1, pp. 382-393, 1 Jan.-March 2023, doi: 10.1109/TAFFC.2020.3025777.
+
 class CDCN(nn.Module):
     def __init__(self, num_electrodes=62, in_channels=5, num_classes=3, growth_rate=12, block_layers=None,
                  dropout=0.4):

@@ -15,6 +15,11 @@ from data_utils.preprocess import normalize
 
 param_path = 'config/model_param/EEGNet.yaml'
 
+# EEGNet official code (tensorflow : https://github.com/vlawhern/arl-eegmodels)
+# EEGNet: a compact convolutional neural network for EEG-based brain-computer interfaces
+# EEGNet paper link : https://pubmed.ncbi.nlm.nih.gov/29932424/
+# Lawhern VJ, Solon AJ, Waytowich NR, Gordon SM, Hung CP, Lance BJ. EEGNet: a compact convolutional neural network for EEG-based brain-computer interfaces. J Neural Eng. 2018 Oct;15(5):056013. doi: 10.1088/1741-2552/aace8c. Epub 2018 Jun 22. PMID: 29932424.
+
 class EEGNet(nn.Module):
     def __init__(self, num_electrodes=62, datapoints=128, num_classes=3, F1=8, D=2, dropout=0.5):
         super().__init__()

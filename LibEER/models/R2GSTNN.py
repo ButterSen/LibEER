@@ -7,6 +7,10 @@ REGION_INDEX = [[3,0,1,2,4],[7,8,9,10,11],[5,6],[13,12],[14,15,23,24,32,33],
                 [34,35,36,37,38],[41,42],[49,48],[43,44,45,46,47],
                 [50,51,57],[56,55,61],[52,53,54],[58,59,60]]
 
+# From Regional to Global Brain: A Novel Hierarchical Spatial-Temporal Neural Network Model for EEG Emotion Recognition
+# r2gstnn paper link : https://ieeexplore.ieee.org/document/8736804
+# Y. Li, W. Zheng, L. Wang, Y. Zong and Z. Cui, "From Regional to Global Brain: A Novel Hierarchical Spatial-Temporal Neural Network Model for EEG Emotion Recognition," in IEEE Transactions on Affective Computing, vol. 13, no. 2, pp. 568-578, 1 April-June 2022, doi: 10.1109/TAFFC.2019.2922912.
+
 class R2GSTNN(nn.Module):
     def __init__(self, input_size=5,  num_classes=3, regions=16, region_index=REGION_INDEX, k=3, t=9,
                  regional_size=100, global_size = 150,regional_temporal_size=200, global_temporal_size=250,

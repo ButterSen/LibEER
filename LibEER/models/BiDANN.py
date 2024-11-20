@@ -21,6 +21,11 @@ RIGHT_CHANNEL_NAME = ['FP2', 'AF4', 'F8',
 'CP4', 'CP2', 'P8', 'P6', 'P4', 'P2', 'PO8', 'PO6', 'PO4', 'CB2', 'O2', 'FZ', 'CZ',
 'PZ', 'OZ']
 
+# A Bi-Hemisphere Domain Adversarial Neural Network Model for EEG Emotion Recognition
+# BiDANN paper link : https://ieeexplore.ieee.org/document/8567966
+# Y. Li, W. Zheng, Y. Zong, Z. Cui, T. Zhang and X. Zhou, "A Bi-Hemisphere Domain Adversarial Neural Network Model for EEG Emotion Recognition," in IEEE Transactions on Affective Computing, vol. 12, no. 2, pp. 494-504, 1 April-June 2021, doi: 10.1109/TAFFC.2018.2885474.
+
+
 class BiDANN(nn.Module):
     def __init__(self, num_electrodes=62, in_channels=5, num_classes=3, sample_length=9, 
                  domain_classes = 2, lambda_= 1, device = None):

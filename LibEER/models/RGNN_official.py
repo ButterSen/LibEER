@@ -21,6 +21,12 @@ from data_utils.constants.deap import DEAP_RGNN_ADJACENCY_MATRIX
 from utils.store import save_state
 from utils.metric import Metric
 
+# code reference : https://github.com/zhongpeixiang/RGNN
+# EEG-Based Emotion Recognition Using Regularized Graph Neural Networks
+# RGNN paper link : https://ieeexplore.ieee.org/document/9091308
+# P. Zhong, D. Wang and C. Miao, "EEG-Based Emotion Recognition Using Regularized Graph Neural Networks," in IEEE Transactions on Affective Computing, vol. 13, no. 3, pp. 1290-1301, 1 July-Sept. 2022, doi: 10.1109/TAFFC.2020.2994159.
+
+
 def maybe_num_nodes(index, num_nodes=None):
     return index.max().item() + 1 if num_nodes is None else num_nodes
 

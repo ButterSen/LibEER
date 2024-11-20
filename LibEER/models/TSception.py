@@ -13,6 +13,11 @@ import yaml
 from utils.store import save_state
 from utils.metric import Metric
 
+# code reference : https://github.com/yi-ding-cs/TSception
+# TSception: Capturing Temporal Dynamics and Spatial Asymmetry From EEG for Emotion Recognition
+# paper link : https://ieeexplore.ieee.org/document/9762054
+# Y. Ding, N. Robinson, S. Zhang, Q. Zeng and C. Guan, "TSception: Capturing Temporal Dynamics and Spatial Asymmetry From EEG for Emotion Recognition," in IEEE Transactions on Affective Computing, vol. 14, no. 3, pp. 2238-2250, 1 July-Sept. 2023, doi: 10.1109/TAFFC.2022.3169001.
+
 class TSception(nn.Module):
     def conv_block(self, in_chan, out_chan, kernel, step, pool):
         return nn.Sequential(

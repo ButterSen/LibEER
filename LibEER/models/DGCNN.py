@@ -1,19 +1,14 @@
 import torch
 import torch.nn as nn
 import torch.utils.data
-from torch.utils.data import RandomSampler, SequentialSampler, DataLoader
-import torch.optim as optim
-from torch.optim.lr_scheduler import StepLR, CosineAnnealingLR
-
-from tqdm import tqdm
 import yaml
 
-from utils.store import save_state
-from utils.metric import Metric
-
-from data_utils.preprocess import normalize
-
 param_path = 'config/model_param/DGCNN.yaml'
+
+
+# EEG Emotion Recognition Using Dynamical Graph Convolutional Neural Networks
+# DGCNN paper link : https://ieeexplore.ieee.org/document/8320798
+# T. Song, W. Zheng, P. Song and Z. Cui, "EEG Emotion Recognition Using Dynamical Graph Convolutional Neural Networks," in IEEE Transactions on Affective Computing, vol. 11, no. 3, pp. 532-541, 1 July-Sept. 2020, doi: 10.1109/TAFFC.2018.2817622.
 
 
 class DGCNN(nn.Module):

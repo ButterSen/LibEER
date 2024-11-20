@@ -12,7 +12,9 @@ from utils.metric import Metric
 
 param_path = 'config/model_param/STRNN.yaml'
 
-
+# Spatial–Temporal Recurrent Neural Network for Emotion Recognition
+# strnn paper link : https://ieeexplore.ieee.org/document/8275511
+# T. Zhang, W. Zheng, Z. Cui, Y. Zong and Y. Li, "Spatial–Temporal Recurrent Neural Network for Emotion Recognition," in IEEE Transactions on Cybernetics, vol. 49, no. 3, pp. 839-847, March 2019, doi: 10.1109/TCYB.2017.2788081.
 class STRNN(nn.Module):
     def __init__(self, sample_length=9, num_electrodes=62, in_channels=5, num_classes=3, sp_hidden=30, tp_hidden=30
                  , sp_projection=10, tp_projection=5):

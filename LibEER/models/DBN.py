@@ -10,6 +10,12 @@ from utils.store import save_state
 from utils.metric import Metric
 param_path = 'config/model_param/DBN.yaml'
 import yaml
+
+# A Channel-Fused Dense Convolutional Network for EEG-Based Emotion Recognition
+# paper link : https://ieeexplore.ieee.org/document/9011570
+# Z. Gao, X. Wang, Y. Yang, Y. Li, K. Ma and G. Chen, "A Channel-Fused Dense Convolutional Network for EEG-Based Emotion Recognition," in IEEE Transactions on Cognitive and Developmental Systems, vol. 13, no. 4, pp. 945-954, Dec. 2021, doi: 10.1109/TCDS.2020.2976112.
+
+
 #RBM类的定义
 class RBM(nn.Module):
     def __init__(self, visible_units, hidden_units):
