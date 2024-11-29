@@ -75,6 +75,22 @@ def set_setting_by_args(args):
                    bounds=args.bounds, onehot=args.onehot, label_used=args.label_used)
 
 
+def faced_sub_independent_train_val_test_setting(args):
+    if not args.dataset.startswith('faced'):
+        print('not using faced dataset, please check your setting')
+        exit(1)
+    print("Using train-val-test faced subject independent experiment mode,\n"
+          "The random 75 subjects' data are taken as training set, random 24 subjects' data are taken as "
+          "validation set, random 24 subject's data are taken as test set. We choose the best results in validation set,"
+          "and test it in test set"
+          )
+    return Setting(dataset=args.dataset, dataset_path=args.dataset_path, pass_band=[args.low_pass, args.high_pass],
+                   extract_bands=None, time_window=args.time_window, overlap=args.overlap,
+                   sample_length=args.sample_length, stride=args.stride, seed=args.seed, feature_type=args.feature_type,
+                   only_seg=args.only_seg, experiment_mode="subject-independent", normalize=args.normalize,
+                   split_type='train-val-test', test_size=0.2, val_size=0.2,
+                   pr=args.pr, sr=args.sr, onehot=args.onehot)
+
 def seed_sub_dependent_front_back_setting(args):
     if not args.dataset.startswith('seed'):
         print('not using SEED dataset, please check your setting')
@@ -99,7 +115,7 @@ def seed_sub_dependent_train_val_test_setting(args):
                    extract_bands=None, time_window=args.time_window, overlap=args.overlap,
                    sample_length=args.sample_length, stride=args.stride, seed=args.seed, feature_type=args.feature_type,
                    only_seg=args.only_seg, experiment_mode="subject-dependent", normalize=args.normalize,
-                   split_type='early-stop', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr, onehot=args.onehot,
+                   split_type='train-val-test', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr, onehot=args.onehot,
                    label_used=args.label_used)
 def seediv_sub_dependent_train_val_test_setting(args):
     if not args.dataset.startswith('seediv'):
@@ -112,7 +128,7 @@ def seediv_sub_dependent_train_val_test_setting(args):
                    extract_bands=None, time_window=args.time_window, overlap=args.overlap,
                    sample_length=args.sample_length, stride=args.stride, seed=args.seed, feature_type=args.feature_type,
                    only_seg=args.only_seg, experiment_mode="subject-dependent", normalize=args.normalize,
-                   split_type='early-stop', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr, onehot=args.onehot,
+                   split_type='train-val-test', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr, onehot=args.onehot,
                    label_used=args.label_used)
 
 def seed_sub_dependent_5fold_setting(args):
@@ -148,7 +164,7 @@ def seed_sub_independent_train_val_test_setting(args):
     if not args.dataset.startswith('seed'):
         print('not using SEED dataset, please check your setting')
         exit(1)
-    print("Using early stopping SEED subject independent experiment mode,\n"
+    print("Using train-val-test SEED subject independent experiment mode,\n"
           "The random nine subjects' data are taken as training set, random three subjects' data are taken as "
           "validation set, random three subject's data are taken as test set. We choose the best results in validation set,"
           "and test it in test set"
@@ -157,7 +173,7 @@ def seed_sub_independent_train_val_test_setting(args):
                    extract_bands=None, time_window=args.time_window, overlap=args.overlap,
                    sample_length=args.sample_length, stride=args.stride, seed=args.seed, feature_type=args.feature_type,
                    only_seg=args.only_seg, experiment_mode="subject-independent", normalize=args.normalize,
-                   split_type='early-stop', test_size=0.2, val_size=0.2, sessions=[1] if args.sessions is None else args.sessions,
+                   split_type='train-val-test', test_size=0.2, val_size=0.2, sessions=[1] if args.sessions is None else args.sessions,
                    pr=args.pr, sr=args.sr, onehot=args.onehot, label_used=args.label_used)
 
 def hci_sub_dependent_train_val_test_setting(args):
@@ -171,7 +187,7 @@ def hci_sub_dependent_train_val_test_setting(args):
                    extract_bands=None, time_window=args.time_window, overlap=args.overlap,
                    sample_length=args.sample_length, stride=args.stride, seed=args.seed, feature_type=args.feature_type,
                    only_seg=args.only_seg, experiment_mode="subject-dependent", normalize=args.normalize,
-                   split_type='early-stop', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr,
+                   split_type='train-val-test', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr,
                    onehot=args.onehot, bounds=args.bounds,
                    label_used=args.label_used)
 
@@ -186,7 +202,7 @@ def seediv_sub_independent_train_val_test_setting(args):
                    extract_bands=None, time_window=args.time_window, overlap=args.overlap,
                    sample_length=args.sample_length, stride=args.stride, seed=args.seed, feature_type=args.feature_type,
                    only_seg=args.only_seg, experiment_mode="subject-independent", normalize=args.normalize,
-                   split_type='early-stop', test_size=0.2, val_size=0.2,
+                   split_type='train-val-test', test_size=0.2, val_size=0.2,
                    sessions=[1] if args.sessions is None else args.sessions,
                    pr=args.pr, sr=args.sr, onehot=args.onehot, label_used=args.label_used)
 
@@ -198,7 +214,7 @@ def deap_sub_independent_train_val_test_setting(args):
                    extract_bands=None, time_window=args.time_window, overlap=args.overlap,
                    sample_length=args.sample_length, stride=args.stride, seed=args.seed, feature_type=args.feature_type,
                    only_seg=args.only_seg, experiment_mode="subject-independent", normalize=args.normalize,
-                   split_type='early-stop', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr,
+                   split_type='train-val-test', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr,
                    onehot=args.onehot, bounds=args.bounds,
                    label_used=args.label_used)
 def hci_sub_independent_train_val_test_setting(args):
@@ -212,7 +228,7 @@ def hci_sub_independent_train_val_test_setting(args):
                    extract_bands=None, time_window=args.time_window, overlap=args.overlap,
                    sample_length=args.sample_length, stride=args.stride, seed=args.seed, feature_type=args.feature_type,
                    only_seg=args.only_seg, experiment_mode="subject-independent", normalize=args.normalize,
-                   split_type='early-stop', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr,
+                   split_type='train-val-test', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr,
                    onehot=args.onehot, bounds=args.bounds,
                    label_used=args.label_used)
 def deap_sub_dependent_train_val_test_setting(args):
@@ -224,7 +240,7 @@ def deap_sub_dependent_train_val_test_setting(args):
                    extract_bands=None, time_window=args.time_window, overlap=args.overlap,
                    sample_length=args.sample_length, stride=args.stride, seed=args.seed, feature_type=args.feature_type,
                    only_seg=args.only_seg, experiment_mode="subject-dependent", normalize=args.normalize,
-                   split_type='early-stop', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr,
+                   split_type='train-val-test', test_size=0.2, val_size=0.2, sessions=args.sessions, pr=args.pr, sr=args.sr,
                    onehot=args.onehot,bounds=args.bounds,
                    label_used=args.label_used)
 
@@ -292,7 +308,7 @@ def dreamer_sub_dependent_setting(args):
                    onehot=args.onehot, label_used=args.label_used)
 
 preset_setting = {
-    # 记得改一下格式
+    "faced_sub_independent_train_val_test_setting": faced_sub_independent_train_val_test_setting,
     "seed_sub_dependent_train_val_test_setting": seed_sub_dependent_train_val_test_setting,
     "seediv_sub_dependent_train_val_test_setting": seediv_sub_dependent_train_val_test_setting,
     "seed_sub_independent_train_val_test_setting": seed_sub_independent_train_val_test_setting,
