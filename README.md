@@ -28,9 +28,11 @@ LibEER supports the use of four EEG emotion recognition datasets. If you wish to
 - [seediv](https://bcmi.sjtu.edu.cn/home/seed/seed-iv.html)
 - [deap](https://www.eecs.qmul.ac.uk/mmv/datasets/deap/)
 - [hci](https://mahnob-db.eu/hci-tagging/)
+- [faced](https://doi.org/10.7303/syn50614194)
 ### Quick Start
 To facilitate easy use for users, we implemented the **Setting** class, allowing one-stop data usage through parameter configuration. Additionally, we have preconfigured many common experimental settings to help users quickly get started. 
 Data is achieved through the **Setting** class:
+([Guide about setting parameters](docs/Setting Parameters.md))
 ```python
 import torch  
 import torch.optim as optim  
@@ -146,6 +148,7 @@ round_metric = train(model=model, datasets_train=datasets_train, dataset_val=dat
 - [seediv](https://bcmi.sjtu.edu.cn/home/seed/seed-iv.html)
 - [deap](https://www.eecs.qmul.ac.uk/mmv/datasets/deap/)
 - [hci](https://mahnob-db.eu/hci-tagging/)
+- [faced](https://doi.org/10.7303/syn50614194)
 ## Supported Methods
 ### DNN methods
 - [Ms-mda](https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2021.778488/full)
