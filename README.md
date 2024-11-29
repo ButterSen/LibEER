@@ -32,7 +32,7 @@ LibEER supports the use of four EEG emotion recognition datasets. If you wish to
 ### Quick Start
 To facilitate easy use for users, we implemented the **Setting** class, allowing one-stop data usage through parameter configuration. Additionally, we have preconfigured many common experimental settings to help users quickly get started. 
 Data is achieved through the **Setting** class:
-([Guide about setting parameters](docs/Setting Parameters.md))
+[Guide about setting parameters](docs/Setting Parameters.md)
 ```python
 import torch  
 import torch.optim as optim  
