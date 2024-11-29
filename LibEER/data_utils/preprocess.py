@@ -175,9 +175,6 @@ def feature_extraction(data, sample_rate, extract_bands, time_window, overlap, f
                 sub_fe_data = fe(trail_data, sample_rate, extract_bands, time_window, overlap)
                 if isLds:
                     sub_fe_data = lds(sub_fe_data)
-                # if trail_i == 0 and sub_i == 0:
-                #     print(sub_fe_data)
-
                 sub_fe.append(sub_fe_data)
             ses_fe.append(sub_fe)
         feature_data.append(ses_fe)

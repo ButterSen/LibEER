@@ -9,8 +9,10 @@ import multiprocessing as mp
 from functools import partial
 import mne
 import xmltodict
+import pickle
 
 from data_utils.preprocess import preprocess, label_process
+from .preprocess import lds
 
 
 def get_data(setting=None):
@@ -35,13 +37,13 @@ def get_data(setting=None):
 available_dataset = [
     "seed_raw", "seediv_raw", "deap", "deap_raw", "hci", "dreamer", "seed_de", "seed_de_lds", "seed_psd", "seed_psd_lds", "seed_dasm", "seed_dasm_lds"
     , "seed_rasm", "seed_rasm_lds", "seed_asm", "seed_asm_lds", "seed_dcau", "seed_dcau_lds", "seediv_de_lds", "seediv_de_movingAve",
-    "seediv_psd_movingAve", "seediv_psd_lds"
+    "seediv_psd_movingAve", "seediv_psd_lds", "faced_de", "faced_psd", "faced_de_lds", "faced_psd_lds"
 ]
 
 extract_dataset = {
     "seed_de", "seed_de_lds", "seed_psd", "seed_psd_lds", "seed_dasm", "seed_dasm_lds"
     , "seed_rasm", "seed_rasm_lds", "seed_asm", "see_und_asm_lds", "seed_dcau", "seed_dcau_lds", "seediv_de_lds", "seediv_de_movingAve",
-    "seediv_psd_movingAve", "seediv_psd_lds"
+    "seediv_psd_movingAve", "seediv_psd_lds", "faced_de", "faced_psd", "faced_de_lds", "faced_psd_lds"
 }
 
 def get_uniform_data(dataset, dataset_path):
@@ -65,10 +67,40 @@ def get_uniform_data(dataset, dataset_path):
     elif dataset.startswith("seed") and not dataset.startswith("seediv") and dataset != "seed_raw":
         # call the read_seed_feature function when using the feature provided by seed official
         data, baseline, label, sample_rate, channels = read_seed_feature(dataset_path, feature_type=dataset[5:])
+    elif dataset.startswith("faced") and dataset != "faced_raw":
+        data, baseline, label, sample_rate, channels = read_faced_feature(dataset_path, feature_type=dataset[6:])
     else:
         data, baseline, label, sample_rate, channels = func[dataset](dataset_path)
     return data, baseline, label, sample_rate, channels
 
+def read_faced_feature(dir_path, feature_type="de", label_type="emotion"):
+    """
+    input : 122 files(122 subjects)
+    output : EEG signal with a trail as the basic unit
+    output shape : (session(1), subject, trail, channel, raw_data), (session(1), subject, trail, label),
+    Extract the EEG data of each subject from the faced dataset (feature)
+    :param dir_path: The file location of the features in the faced dataset.
+    :param feature_type: extract feature type
+    :param label_type: Choose whether to use fine-grained("emotion"->9) or coarse-grained("valence"->3d) classification.
+    :return: EEG features
+    """
+    is_lds = feature_type.endswith("_lds")
+    dir_path += "/"+ feature_type[:-4].upper() if is_lds else feature_type.upper()
+    # str(num).zfill(3)
+    data = [[[] for _ in range(123)]]
+    # emotion : Anger, Disgust, Fear, Sadness, Neutral, Amusement, Inspiration, Joy, Tenderness
+    # valence : Negative, Neutral, Positive
+    label = [[[0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8] if label_type =="emotion" else [0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2]  for _ in range(123)]]
+    for i in range(123):
+        file_path = dir_path + f"/sub{str(i).zfill(3)}.pkl.pkl"
+        with open(file_path, "rb") as feature_file:
+            sub_feature = pickle.load(feature_file)
+            sub_feature = sub_feature.transpose(0,2,1,3)
+            if is_lds:
+                for j in range(len(sub_feature)):
+                    sub_feature[j] = lds(sub_feature[j])
+            data[0][i] = sub_feature
+    return data, None, label, None, 32
 
 def read_seed_raw(dir_path):
     # input : 45 files(3 sessions, 15 round) containing all 15 trails with a sampling rate of 200 Hz
@@ -119,12 +151,19 @@ def parallel_read_seed_raw(dir_path, file):
         trail_datas.append(trail_data[:,1:])
     return trail_datas
 
-def read_seed_feature(dir_path, feature_type="de"):
-    # input : 45 files(3 sessions, 15 round) containing all 15 trails with a sampling rate of 200 Hz
-    # output : EEG signal with a trail as the basic unit
-    # output shape : (session, subject, trail, channel, raw_data), (session, subject, trail, label),
 
-    # Extract the EEG data of each subject from the SEED dataset, and partition the data of each session
+
+def read_seed_feature(dir_path, feature_type="de"):
+    """
+    input : 45 files(3 sessions, 15 round) containing all 15 trails with a sampling rate of 200 Hz
+    output : EEG signal with a trail as the basic unit
+    output shape : (session, subject, trail, channel, raw_data), (session, subject, trail, label),
+    Extract the EEG data of each subject from the SEED dataset (feature) , and partition the data of each session
+    :param dir_path: The file location of the features in the seed dataset.
+    :param feature_type: extract feature type
+    :return: the eeg features from seed dataset
+    """
+
     dir_path += "/ExtractedFeatures"
     eeg_files = [['1_20131027.mat', '2_20140404.mat', '3_20140603.mat',
                   '4_20140621.mat', '5_20140411.mat', '6_20130712.mat',

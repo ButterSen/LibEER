@@ -4,75 +4,6 @@ from utils.store import save_data
 from sklearn.model_selection import KFold, LeaveOneOut, StratifiedKFold, train_test_split
 import random
 
-# def train_test_split(data, label, setting):
-#     """
-#     Provides division of training set and test set under various experimental settings No matter how the experimental
-#     settings are, they are all based on trail division, so trail is a basic division unit. For the three typical
-#     experimental settings on a dataset, subject-dependent, subject-independent, cross-session,they can be operated
-#     based on each subject’s trail, each subject, each session
-#           input : all the eeg data and label which can directly be taken as an input
-#           output : data and label that make up the training set or test set
-#           input shape -> data :   (session, subject, trail, sample, sample_length, time_window, channel, band_feature)
-#                          label :  (session, subject, trail, sample, label)
-#           output shape -> data :  (sample, sample_length, time_window, channel, band_feature)
-#                           label : (sample, label)
-#     """
-#     train_data = []
-#     train_label = []
-#     test_data = []
-#     test_label = []
-#     if setting.experiment_mode == "subject-dependent":
-#         # reshape to (sample, sample_length, time_window, channel, band_feature)
-#         train_data = [sample for session in data for subject in session for i in setting.train_part for sample in
-#                       subject[i - 1]]
-#         train_label = [sample for session in label for subject in session for i in setting.train_part for sample in
-#                        subject[i - 1]]
-#
-#         test_part = list(set(range(1, len(data[0][0]) + 1)) - set(setting.train_part))
-#
-#         test_data = [sample for session in data for subject in session for i in test_part for sample in
-#                      subject[i - 1]]
-#         test_label = [sample for session in label for subject in session for i in test_part for sample in
-#                       subject[i - 1]]
-#
-#     elif setting.experiment_mode == "subject-independent":
-#
-#         # reshape to (sample, sample_length, time_window, channel, band_feature)
-#         train_data = [sample for session in data for i in setting.train_part for trail in session[i-1]
-#                       for sample in trail]
-#         train_label = [sample for session in label for i in setting.train_part for trail in session[i-1]
-#                        for sample in trail]
-#
-#         test_part = list(set(range(1, len(data[0]) + 1)) - set(setting.train_part))
-#
-#         test_data = [sample for session in data for i in test_part for trail in session[i-1] for sample in trail]
-#         test_label = [sample for session in label for i in test_part for trail in session[i-1] for sample in trail]
-#
-#     elif setting.experiment_mode == "cross-session":
-#
-#         # reshape to (sample, sample_length, time_window, channel, band_feature)
-#         train_data = [sample for i in setting.train_part for session in data[i-1] for subject in session for trail in
-#                       subject for sample in trail]
-#         train_label = [sample for i in setting.train_part for session in label[i-1] for subject in session for trail in
-#                        subject for sample in trail]
-#
-#         test_part = list(set(range(1, len(data) + 1)) - set(setting.train_part))
-#
-#         test_data = [sample for i in test_part for subject in data[i-1] for trail in subject for sample in trail]
-#         test_label = [sample for i in test_part for subject in label[i-1] for trail in subject for sample in trail]
-#
-#     train_data = np.asarray(train_data)
-#     train_label = np.asarray(train_label)
-#     test_data = np.asarray(test_data)
-#     test_label = np.asarray(test_label)
-#     if setting.normalize:
-#         for i in range(len(train_data[0][0])):
-#             scaler = StandardScaler()
-#             train_data[:, :, i] = scaler.fit_transform(train_data[:, :, i])
-#             test_data[:, :, i] = scaler.transform(test_data[:, :, i])
-#     # if setting.save_data:
-#     #     save_data(train_data, train_label, test_data, test_label)
-#     return train_data, train_label, test_data, test_label
 
 def index_to_data(data, label, train_indexes, test_indexes, val_indexes, keep_dim=False):
     train_data = []
@@ -131,7 +62,7 @@ def get_split_index(data, label, setting=None):
             exit(1)
         tts['train'] = [[i for i in range(setting.front)]]
         tts['test'] = [[setting.front + i for i in range(len(label) - setting.front)]]
-    elif setting.split_type == "early-stop":
+    elif setting.split_type == "train-val-test":
         if setting.experiment_mode == "subject-dependent":
             # data need to be split balanced
             # input data : [[not-repetitive] * trails], label : [[repetitive] * trails]
