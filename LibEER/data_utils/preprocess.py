@@ -362,7 +362,7 @@ def segment_data(data, sample_length, stride):
         elif len(seg_data[0][0][0].shape) == 3:
             return seg_data, len(seg_data[0][0][0][0][0])
 
-def label_process(data, label, bounds=None, onehot=False, label_used=None):
+def label_process(data, label, bounds=None, onehot=True, label_used=None):
     """
     input shape -> data: (session, subject, trail, sample)
                    label: (session, subject, trail)
