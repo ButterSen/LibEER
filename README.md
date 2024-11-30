@@ -34,60 +34,106 @@ To facilitate easy use for users, we implemented the **Setting** class, allowing
 Data is achieved through the **Setting** class:
 [Guide about setting parameters](docs/SettingParameters.md)
 ```python
-import torch  
-import torch.optim as optim  
+from models.Models import Model
+from config.setting import Setting, preset_setting
+from data_utils.load_data import get_data
+from data_utils.split import merge_to_part, index_to_data, get_split_index
+from utils.args import get_args_parser
+from utils.store import make_output_dir
+from utils.utils import result_log, setup_seed
+from Trainer.training import train
+from models.DGCNN import NewSparseL2Regularization
+import torch
+import torch.optim as optim
 import torch.nn as nn
 
-from config.setting import Setting  
-from Trainer.training import train
-from models.Models import Model
-from models.DGCNN import NewSparseL2Regularization
-from data_utils.load_data import get_data  
-from data_utils.split import merge_to_part, index_to_data, get_split_index
-from utils.utils import result_log,
 
+def main(args):
+    setting = Setting(dataset='deap',  # Select the dataset
+                      dataset_path='DEAP/data_preprocessed_python',  # Specify the path to the corresponding dataset.
+                      pass_band=[0.3, 50],  # use a band-pass filter with a range of 0.3 to 50 Hz,
+                      extract_bands=[[0.5, 4], [4, 8], [8, 14], [14, 30], [30, 50]],
+                      # Set the frequency bands for extracting frequency features.
+                      time_window=1,  # Set the time window for feature extraction to 1 second.
+                      overlap=0,  # The overlap length of the time window for feature extraction.
+                      sample_length=1,
+                      # Use a sliding window to extract the features with a window size of sample_length set to 1 and a step size of 1.
+                      stride=1,
+                      seed=2024,  # set up the random seed
+                      feature_type='de_lds',  # set the feature type to extract
+                      label_used=['valence'], # specify the label used
+                      bounds=[5,5], # The bounds parameter is used to define the thresholds for high and low. Values below bounds[0] are considered negative samples, while values above bounds[1] are considered positive samples.
+                      experiment_mode="subject-dependent",
+                      split_type='train-val-test',
+                      test_size=0.2,
+                      val_size=0.2)
+    setup_seed(2024) # Set the random seed for the experiment to ensure reproducibility.
+    data, label, channels, feature_dim, num_classes = get_data(setting) # Get the corresponding data and information based on the setting class.
+    # The organization of data and label is [session(1), subject(32), trial(40), sample(XXX)].
+    data, label = merge_to_part(data, label, setting) # Merge the data based on the experiment task specified in the setting class.
+    # After the merge_to_part() function and the specified subject-independent method, the organization of data and label will be [[subject(32), trail(40), sample(xxx)]].
+    device = torch.device(args.device) # Set the device based on the args command-line parameters.
+    best_metrics = [] # Prepare to record the experimental results.
+    for rridx, (data_i, label_i) in enumerate(zip(data, label), 1): # This loop will only execute 32 times; it will be enabled only under the subject-dependent task.
+        tts = get_split_index(data_i, label_i, setting) # Get the task indexes for the experiment based on the setting class. The leave-one-out splitting method was chosen.
+        # Here, in tts:
+        # train indexes:[2, 15, 4, 17, 5, 22, 39, 20, 23, 7, 18, 14, 35, 28, 12, 3, 33, 31, 36, 11, 32, 13, 9, 24], val indexes:[1, 19, 25, 16, 27, 29, 8, 6], test indexes:[0, 21, 26, 30, 10, 38, 37, 34]
+        # train indexes:[0, 19, 1, 23, 8, 13, 10, 17, 18, 3, 11, 2, 24, 22, 29, 38, 26, 33, 28, 37, 34, 36, 5, 20], val indexes:[35, 39, 14, 15, 6, 21, 32, 4], test indexes:[25, 7, 16, 12, 27, 9, 31, 30]
+        # ...
+        for ridx, (train_indexes, test_indexes, val_indexes) in enumerate(zip(tts['train'], tts['test'], tts['val']), 1):
+            setup_seed(args.seed) # Set the random seed again to ensure reproducibility.
+            if val_indexes[0] == -1:
+                print(f"train indexes:{train_indexes}, test indexes:{test_indexes}")
+            else:
+                print(f"train indexes:{train_indexes}, val indexes:{val_indexes}, test indexes:{test_indexes}")
 
-setting = Setting(dataset='deap',  
-                  dataset_path='DEAP/data_preprocessed_python',  
-                  pass_band=[0.3, 50],  
-                  extract_bands=[[0.5,4],[4,8],[8,14],[14,30],[30,50]],   
-                  time_window=1,   
-                  overlap=0,  
-                  sample_length=1,   
-                  stride=1,   
-                  seed=2024,   
-                  feature_type='de_lds',   
-                  only_seg=False,   
-                  experiment_mode="subject-dependent",  
-                  split_type='train-val-test',   
-                  test_size=0.2,   
-                  val_size=0.2)
-data, label, channels, feature_dim, num_classes = get_data(setting)
-data, label = merge_to_part(data, label, setting)
-for rridx, (data_i, label_i) in enumerate(zip(data, label), 1):  
-    tts = get_split_index(data_i, label_i, setting)  
-    for ridx, (train_indexes, test_indexes, val_indexes) in enumerate(zip(tts['train'], tts['test'], tts['val']), 1):  
-	    train_data, train_label, val_data, val_label, test_data, test_label = \  
-    index_to_data(data_i, label_i, train_indexes, test_indexes, val_indexes, args.keep_dim)
-		model = Model['DGCNN'](channels, feature_dim, num_classes)  
-	    # Train one round using the train one round function defined in the model  
-        dataset_train = torch.utils.data.TensorDataset(torch.Tensor(train_data), torch.Tensor(train_label))  
-        dataset_val = torch.utils.data.TensorDataset(torch.Tensor(val_data), torch.Tensor(val_label))  
-        dataset_test = torch.utils.data.TensorDataset(torch.Tensor(test_data), torch.Tensor(test_label))  
-        optimizer = optim.AdamW(model.parameters(), lr=args.lr, weight_decay=1e-4, eps=1e-4)  
-        criterion = nn.CrossEntropyLoss()  
-        loss_func = NewSparseL2Regularization(0.01).to(device)  
-        round_metric = train(model=model, dataset_train=dataset_train, dataset_val=dataset_val, dataset_test=dataset_test, device=device,  
-                             output_dir=output_dir, metrics=args.metrics, metric_choose=args.metric_choose, optimizer=optimizer,  
-                             batch_size=args.batch_size, epochs=args.epochs, criterion=criterion, loss_func=loss_func, loss_param=model)  
-        best_metrics.append(round_metric)  
+            # Retrieve the corresponding data based on the indexes. train_data contains data from 24 trails, val_data contains data from 8 trails, and test_data contains data from other 8 trails.
+            train_data, train_label, val_data, val_label, test_data, test_label = \
+                index_to_data(data_i, label_i, train_indexes, test_indexes, val_indexes)
+            # model to train
+            if len(val_data) == 0:
+                val_data = test_data
+                val_label = test_label
+            # Choose a model. Alternatively, you can use the method below to import the DGCNN model:
+            # model = DGCNN(channels, feature_dim, num_classes)
+            # You can configure the model parameters in model_param/DGCNN.yaml
+            model = Model['DGCNN'](channels, feature_dim, num_classes)
+            # Prepare the corresponding dataloader.
+            dataset_train = torch.utils.data.TensorDataset(torch.Tensor(train_data), torch.Tensor(train_label))
+            dataset_val = torch.utils.data.TensorDataset(torch.Tensor(val_data), torch.Tensor(val_label))
+            dataset_test = torch.utils.data.TensorDataset(torch.Tensor(test_data), torch.Tensor(test_label))
+            # Select an appropriate optimizer.
+            optimizer = optim.AdamW(model.parameters(), lr=args.lr, weight_decay=1e-4, eps=1e-4)
+            # Select appropriate loss functions. The first is a classification loss function, and the second is the L2 regularization loss in DGCNN.
+            criterion = nn.CrossEntropyLoss()
+            loss_func = NewSparseL2Regularization(0.01).to(device)
+            # Specify the output_dir, mainly for saving intermediate results during model training. It is set based on args but may show errors currently.
+            output_dir = make_output_dir(args, "DGCNN")
+            # Call the training function to train. Batch size, epochs, etc., can be set via command-line parameters, or manually if desired.
+            round_metric = train(model=model, dataset_train=dataset_train, dataset_val=dataset_val, dataset_test=dataset_test, device=device,
+                                 output_dir=output_dir, metrics=args.metrics, metric_choose=args.metric_choose, optimizer=optimizer,
+                                 batch_size=args.batch_size, epochs=args.epochs, criterion=criterion, loss_func=loss_func, loss_param=model)
+            best_metrics.append(round_metric)
+    # best metrics: every round metrics dict
     result_log(args, best_metrics)
+
+if __name__ == '__main__':
+    args = get_args_parser()
+    args = args.parse_args()
+    main(args)
+
 ```
 Data also can be achieved by preset setting by:
 ```python
-from config.setting import seed_sub_dependent_train_val_test_setting
-data, label, channels, feature_dim, num_classes = get_data(setting)
-...
+from config.setting import deap_sub_dependent_train_val_test_setting
+
+def main(args):
+	setting = preset_setting["deap_sub_dependent_train_val_test_setting"](args)
+	# ...
+if __name__ == '__main__':
+    args = get_args_parser()
+    args = args.parse_args()
+    main(args)
 ```
 Currently supported prset setting can be found in [Preset Setting in LibEER](docs/PresetSetting.md)
 
