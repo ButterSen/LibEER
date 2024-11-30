@@ -35,7 +35,7 @@ def get_args_parser():
     parser.add_argument('-time', default=time.localtime(), help='the time now')
 
     # preset parameters
-    parser.add_argument('-setting', default='seed_sub_dependent_front_back_setting', choices=preset_setting,
+    parser.add_argument('-setting', default=None, choices=preset_setting,
                         help='using preset setting')
 
     # dataset parameters
